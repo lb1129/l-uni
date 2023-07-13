@@ -1,5 +1,22 @@
 {
 	"hello": "Hello",
-	"settingLocale": "Setting locale",
-	"languageChangeConfirm": "Applying this setting will restart the app"
+	"language": "Language",
+	"languageChangeConfirm": "Applying this setting will restart the app",
+	"theme": "Theme",
+	"home": "Home",
+	"me": "Me",
+	"setting": "Setting",
+	"aboutUs": "About us",
+	"personalInfo": "Personal info",
+	"editNickname": "Edit nickname",
+	"privacyPolicy": "Privacy policy",
+	"login": "Login",
+	"register": "register",
+	"findPassword": "Find password",
+	"serviceAgreement": "Service agreement",
+	"product.list": "Product list",
+	"product.detail": "Product detail",
+	"order.list": "Order list",
+	"order.detail": "Order detail",
+	"order.place.order": "Place order"
 }

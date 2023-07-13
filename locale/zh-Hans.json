@@ -1,5 +1,22 @@
 {
 	"hello": "你好",
-	"settingLocale": "设置语言",
-	"languageChangeConfirm": "应用此设置将重启App"
+	"language": "语言",
+	"languageChangeConfirm": "应用此设置将重启App",
+	"theme": "主题色",
+	"home": "首页",
+	"me": "我的",
+	"setting": "设置",
+	"aboutUs": "关于我们",
+	"personalInfo": "个人资料",
+	"editNickname": "修改昵称",
+	"privacyPolicy": "隐私政策",
+	"login": "登录",
+	"register": "注册",
+	"findPassword": "找回密码",
+	"serviceAgreement": "服务协议",
+	"product.list": "产品列表",
+	"product.detail": "产品详情",
+	"order.list": "订单列表",
+	"order.detail": "订单详情",
+	"order.place.order": "下单"
 }
