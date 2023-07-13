@@ -1,17 +1,142 @@
 {
+	// BUG 暗黑主题与国际化同时使用时 语言切换时配置在此处的国际化将不起作用
 	"pages": [{
+		"path": "pages/login/login",
+		"style": {
+			"navigationBarTitleText": "%login%"
+		}
+	}, {
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "uni-app"
+			"navigationBarTitleText": "%home%",
+			"enablePullDownRefresh": true
+		}
+	}, {
+		"path": "pages/me/me",
+		"style": {
+			"navigationBarTitleText": "%me%"
 		}
 	}],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
-		"app-plus": {
-			"background": "#efeff4"
+	"subPackages": [{
+			"root": "pages/authenticate",
+			"pages": [{
+				"path": "register/register",
+				"style": {
+					"navigationBarTitleText": "%register%"
+				}
+
+			}, {
+				"path": "find-password/find-password",
+				"style": {
+					"navigationBarTitleText": "%findPassword%"
+				}
+
+			}]
+		},
+		{
+			"root": "pages/personal-center",
+			"pages": [{
+				"path": "setting/setting",
+				"style": {
+					"navigationBarTitleText": "%setting%"
+				}
+			}, {
+				"path": "about-us/about-us",
+				"style": {
+					"navigationBarTitleText": "%aboutUs%"
+				}
+
+			}, {
+				"path": "privacy-policy/privacy-policy",
+				"style": {
+					"navigationBarTitleText": "%privacyPolicy%"
+				}
+			}, {
+				"path": "info/info",
+				"style": {
+					"navigationBarTitleText": "%personalInfo%"
+				}
+			}, {
+				"path": "edit-nickname/edit-nickname",
+				"style": {
+					"navigationBarTitleText": "%editNickname%"
+				}
+			}, {
+				"path": "service-agreement/service-agreement",
+				"style": {
+					"navigationBarTitleText": "%serviceAgreement%"
+				}
+			}]
+		}, {
+			"root": "pages/product-manage",
+			"pages": [{
+				"path": "list/list",
+				"style": {
+					"navigationBarTitleText": "%product.list%"
+				}
+
+			}, {
+				"path": "detail/detail",
+				"style": {
+					"navigationBarTitleText": "%product.detail%"
+				}
+			}]
+		}, {
+			"root": "pages/order-manage",
+			"pages": [{
+				"path": "list/list",
+				"style": {
+					"navigationBarTitleText": "%order.list%"
+				}
+
+			}, {
+				"path": "detail/detail",
+				"style": {
+					"navigationBarTitleText": "%order.detail%"
+				}
+			}, {
+				"path": "place-order/place-order",
+				"style": {
+					"navigationBarTitleText": "%order.place.order%"
+				}
+			}]
 		}
+	],
+	"preloadRule": {
+		"pages/login/login": {
+			"network": "all",
+			"packages": ["pages/authenticate"]
+		},
+		"pages/me/me": {
+			"network": "all",
+			"packages": ["pages/personal-center"]
+		}
+	},
+	"globalStyle": {
+		"navigationBarBackgroundColor": "#007aff",
+		"navigationBarTextStyle": "white",
+		"backgroundColor": "#ffffff",
+		"backgroundColorTop": "#eeeeee",
+		"backgroundColorBottom": "#efefef",
+		"backgroundTextStyle": "light"
+	},
+	"tabBar": {
+		"color": "#d6d6d6",
+		"selectedColor": "#007aff",
+		"backgroundColor": "#ffffff",
+		"borderStyle": "white",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "/static/tabbar/home-grey.png",
+				"selectedIconPath": "/static/tabbar/home-primary.png",
+				"text": "%home%"
+			},
+			{
+				"pagePath": "pages/me/me",
+				"iconPath": "/static/tabbar/user-grey.png",
+				"selectedIconPath": "/static/tabbar/user-primary.png",
+				"text": "%me%"
+			}
+		]
 	}
 }
