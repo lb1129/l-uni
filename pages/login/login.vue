@@ -2,44 +2,46 @@
 	<app-authenticate-layout>
 		<uni-forms ref="form" :rules="rules" :model="model" :label-width="0">
 			<uni-forms-item name="username">
-				<uni-easyinput :inputBorder="false" v-model="model.username" placeholder="请输入手机号/用户名" />
+				<uni-easyinput :inputBorder="false" v-model="model.username"
+					:placeholder="$t('pleaseEnterPhoneOrAccount')" />
 			</uni-forms-item>
 			<uni-forms-item name="password">
 				<uni-easyinput clearable v-model="model.password" type="password" :inputBorder="false"
-					placeholder="请输入密码" />
+					:placeholder="$t('pleaseEnterPassword')" />
 			</uni-forms-item>
 		</uni-forms>
 		<view>
-			<app-text like-link @click="navigato('/pages/authenticate/register/register')">注册账号</app-text>
+			<app-text like-link @click="navigato('/pages/authenticate/register/register')">{{$t('signUp')}}</app-text>
 			<view style="float: right;">
 				<app-text like-link
-					@click="navigato('/pages/authenticate/find-password/find-password')">忘记密码？</app-text>
+					@click="navigato('/pages/authenticate/find-password/find-password')">{{$t('forgotPassword')}}</app-text>
 			</view>
 		</view>
 		<app-gap gap="20px"></app-gap>
 		<button :loading="loading" class="login-content-login" :style="{
 				backgroundColor: theme
-			}" @click="loginHandler">登录</button>
+			}" @click="loginHandler">{{$t('login')}}</button>
 		<app-gap></app-gap>
-		<checkbox-group style="display: inline-block;" @change="agreeChangeHandler">
+		<checkbox-group style="display: inline-block; margin-right: 2px;" @change="agreeChangeHandler">
 			<label>
 				<checkbox :checked="agree" style="transform:scale(0.7)" />
-				<text style="font-size: 14px;">同意</text>
+				<text style="font-size: 14px;">{{$t('agree')}}</text>
 			</label>
 		</checkbox-group>
 		<app-text like-link
-			@click="navigato('/pages/personal-center/service-agreement/service-agreement')">用户服务协议</app-text>
-		<text style="margin: 0 2px;">和</text>
-		<app-text like-link @click="navigato('/pages/personal-center/privacy-policy/privacy-policy')">隐私政策条款</app-text>
+			@click="navigato('/pages/personal-center/service-agreement/service-agreement')">{{$t('serviceAgreement')}}</app-text>
+		<text style="margin: 0 2px; font-size: 14px;">{{$t('and')}}</text>
+		<app-text like-link
+			@click="navigato('/pages/personal-center/privacy-policy/privacy-policy')">{{$t('privacyPolicy')}}</app-text>
 		<uni-popup ref="dialog" type="center">
-			<uni-popup-dialog confirmText="同意" @confirm="confirmHandler">
-				<view>
-					<text style="font-size: 14px;">请先阅读并同意</text>
+			<uni-popup-dialog :confirmText="$t('agree')" @confirm="confirmHandler">
+				<view style="font-size: 14px;">
+					<text>{{$t('pleaseReadAndAgree')}}</text>
 					<app-text like-link
-						@click="navigato('/pages/personal-center/service-agreement/service-agreement')">用户服务协议</app-text>
-					<text style="margin: 0 2px;">和</text>
+						@click="navigato('/pages/personal-center/service-agreement/service-agreement')">{{$t('serviceAgreement')}}</app-text>
+					<text style="margin: 0 2px;">{{$t('and')}}</text>
 					<app-text like-link
-						@click="navigato('/pages/personal-center/privacy-policy/privacy-policy')">隐私政策条款</app-text>
+						@click="navigato('/pages/personal-center/privacy-policy/privacy-policy')">{{$t('privacyPolicy')}}</app-text>
 				</view>
 			</uni-popup-dialog>
 		</uni-popup>
@@ -62,13 +64,13 @@
 					username: {
 						rules: [{
 							required: true,
-							errorMessage: '请输入手机号/用户名',
+							errorMessage: this.$t('pleaseEnterPhoneOrAccount')
 						}]
 					},
 					password: {
 						rules: [{
 							required: true,
-							errorMessage: '请输入密码',
+							errorMessage: this.$t('pleaseEnterPassword'),
 						}]
 					}
 				}
@@ -104,6 +106,9 @@
 				// navigate to home page
 				setTimeout(() => {
 					// this.model
+					uni.switchTab({
+						url: '/pages/index/index'
+					})
 					this.loading = false
 				}, 500)
 			}

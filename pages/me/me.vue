@@ -8,11 +8,13 @@
 		</view>
 	</view>
 	<uni-list>
-		<uni-list-item title="个人资料" link to="/pages/personal-center/info/info" />
-		<uni-list-item title="设置" link to="/pages/personal-center/setting/setting" />
-		<uni-list-item title="隐私政策" link to="/pages/personal-center/privacy-policy/privacy-policy" />
-		<uni-list-item title="关于我们" link to="/pages/personal-center/about-us/about-us" />
-		<uni-list-item title="退出登录" link to="/pages/authenticate/login/login" />
+		<uni-list-item :title="$t('personalInfo')" link to="/pages/personal-center/info/info" />
+		<uni-list-item :title="$t('setting')" link to="/pages/personal-center/setting/setting" />
+		<uni-list-item :title="$t('serviceAgreement')" link
+			to="/pages/personal-center/service-agreement/service-agreement" />
+		<uni-list-item :title="$t('privacyPolicy')" link to="/pages/personal-center/privacy-policy/privacy-policy" />
+		<uni-list-item :title="$t('aboutUs')" link to="/pages/personal-center/about-us/about-us" />
+		<uni-list-item :title="$t('logOut')" clickable @click="logOutHandler" show-arrow />
 	</uni-list>
 </template>
 
@@ -21,6 +23,29 @@
 		data() {
 			return {
 
+			}
+		},
+		methods: {
+			logOutHandler() {
+				uni.showModal({
+					title: this.$t('tip'),
+					content: this.$t('areYouSureToLogOut'),
+					success: (res) => {
+						if (res.confirm) {
+							// TODO call logout api
+							uni.showLoading({
+								title: this.$t('signingOutPleaseWait'),
+								mask: true
+							})
+							setTimeout(() => {
+								uni.hideLoading()
+								uni.redirectTo({
+									url: '/pages/login/login'
+								})
+							}, 500)
+						}
+					}
+				});
 			}
 		}
 	}
