@@ -6,7 +6,7 @@
 			"navigationBarTitleText": "%login%"
 		}
 	}, {
-		"path": "pages/index/index",
+		"path": "pages/home/home",
 		"style": {
 			"navigationBarTitleText": "%home%",
 			"enablePullDownRefresh": true
@@ -36,9 +36,9 @@
 		{
 			"root": "pages/personal-center",
 			"pages": [{
-				"path": "setting/setting",
+				"path": "system-setting/system-setting",
 				"style": {
-					"navigationBarTitleText": "%setting%"
+					"navigationBarTitleText": "%systemSetting%"
 				}
 			}, {
 				"path": "about-us/about-us",
@@ -52,19 +52,14 @@
 					"navigationBarTitleText": "%privacyPolicy%"
 				}
 			}, {
-				"path": "info/info",
+				"path": "personal-info/personal-info",
 				"style": {
 					"navigationBarTitleText": "%personalInfo%"
 				}
 			}, {
-				"path": "edit-nickname/edit-nickname",
+				"path": "edit-user-name/edit-user-name",
 				"style": {
-					"navigationBarTitleText": "%editNickname%"
-				}
-			}, {
-				"path": "service-agreement/service-agreement",
-				"style": {
-					"navigationBarTitleText": "%serviceAgreement%"
+					"navigationBarTitleText": "%editUserName%"
 				}
 			}]
 		}, {
@@ -113,12 +108,8 @@
 		}
 	},
 	"globalStyle": {
-		"navigationBarBackgroundColor": "#007aff",
-		"navigationBarTextStyle": "white",
-		"backgroundColor": "#ffffff",
-		"backgroundColorTop": "#eeeeee",
-		"backgroundColorBottom": "#efefef",
-		"backgroundTextStyle": "light"
+		"navigationBarBackgroundColor": "#f5f5f5",
+		"navigationBarTextStyle": "white"
 	},
 	"tabBar": {
 		"color": "#d6d6d6",
@@ -126,15 +117,15 @@
 		"backgroundColor": "#ffffff",
 		"borderStyle": "white",
 		"list": [{
-				"pagePath": "pages/index/index",
-				"iconPath": "/static/tabbar/home-grey.png",
-				"selectedIconPath": "/static/tabbar/home-primary.png",
+				"pagePath": "pages/home/home",
+				"iconPath": "/static/tabbar/home.png",
+				"selectedIconPath": "/static/tabbar/home-007aff.png",
 				"text": "%home%"
 			},
 			{
 				"pagePath": "pages/me/me",
-				"iconPath": "/static/tabbar/user-grey.png",
-				"selectedIconPath": "/static/tabbar/user-primary.png",
+				"iconPath": "/static/tabbar/user.png",
+				"selectedIconPath": "/static/tabbar/user-007aff.png",
 				"text": "%me%"
 			}
 		]
