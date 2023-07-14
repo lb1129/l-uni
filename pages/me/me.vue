@@ -8,10 +8,8 @@
 		</view>
 	</view>
 	<uni-list>
-		<uni-list-item :title="$t('personalInfo')" link to="/pages/personal-center/info/info" />
-		<uni-list-item :title="$t('setting')" link to="/pages/personal-center/setting/setting" />
-		<uni-list-item :title="$t('serviceAgreement')" link
-			to="/pages/personal-center/service-agreement/service-agreement" />
+		<uni-list-item :title="$t('personalInfo')" link to="/pages/personal-center/personal-info/personal-info" />
+		<uni-list-item :title="$t('systemSetting')" link to="/pages/personal-center/system-setting/system-setting" />
 		<uni-list-item :title="$t('privacyPolicy')" link to="/pages/personal-center/privacy-policy/privacy-policy" />
 		<uni-list-item :title="$t('aboutUs')" link to="/pages/personal-center/about-us/about-us" />
 		<uni-list-item :title="$t('logOut')" clickable @click="logOutHandler" show-arrow />
@@ -30,15 +28,19 @@
 				uni.showModal({
 					title: this.$t('tip'),
 					content: this.$t('areYouSureToLogOut'),
+					cancelText: this.$t('cancel'),
+					confirmText: this.$t('confirm'),
 					success: (res) => {
 						if (res.confirm) {
 							// TODO call logout api
-							uni.showLoading({
+							uni.showToast({
+								icon: 'none',
 								title: this.$t('signingOutPleaseWait'),
-								mask: true
+								mask: true,
+								duration: 60000
 							})
 							setTimeout(() => {
-								uni.hideLoading()
+								uni.hideToast()
 								uni.redirectTo({
 									url: '/pages/login/login'
 								})
