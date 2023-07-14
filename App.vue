@@ -1,13 +1,21 @@
 <script>
+	import {
+		themeStorage
+	} from '@/storage/index'
+	import {
+		mapActions
+	} from 'vuex'
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			const theme = themeStorage.get()
+			if (theme) {
+				this.setTheme(theme)
+			}
 		},
-		onShow: function() {
-			console.log('App Show')
-		},
-		onHide: function() {
-			console.log('App Hide')
+		onShow: function() {},
+		onHide: function() {},
+		methods: {
+			...mapActions(['setTheme'])
 		}
 	}
 </script>
@@ -20,9 +28,11 @@
 	/* #ifndef APP-NVUE */
 	@import '@/static/customicons.css';
 	@import '@/uni.scss';
+
 	// 设置整个项目的背景色
 	page {
 		background-color: $app-grey;
 	}
+
 	/* #endif */
 </style>
