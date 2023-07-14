@@ -9,21 +9,20 @@
 		name: "app-text",
 		emits: ['click'],
 		props: {
-			theme: {
-				type: String,
-				default: '#007aff',
-			},
 			fontSize: {
 				type: String,
 				default: '14px'
 			},
 			likeLink: Boolean
 		},
+		options: {
+			virtualHost: true
+		},
 		computed: {
 			extraStyle() {
 				let res = {}
 				if (this.likeLink) {
-					res.color = this.theme
+					res.color = this.$theme
 					res.cursor = 'pointer'
 				}
 				return res
