@@ -21,11 +21,14 @@
 				default: '40px'
 			},
 			customStyle: Object
+		},
+		options: {
+			virtualHost: true
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 	.app-avatar {
 		border-radius: 50%;
 	}
