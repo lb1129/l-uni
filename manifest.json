@@ -6,8 +6,8 @@
 	"versionCode": "100",
 	"transformPx": false,
 	"h5": {
-
-	},
+        
+    },
 	"app-plus": {
 		"optimization": {
 			"subPackages": true
@@ -56,12 +56,12 @@
 	"quickapp": {},
 	/* 快应用特有相关 */
 	"mp-weixin": {
-		/* 小程序特有相关 */
-		"appid": "",
+		"appid": "wxdf08a3de4f36c307",
 		"setting": {
 			"urlCheck": false
 		},
-		"usingComponents": true
+		"usingComponents": true,
+		"lazyCodeLoading": "requiredComponents"
 	},
 	"vueVersion": "3",
 	"fallbackLocale": "zh-Hans",
