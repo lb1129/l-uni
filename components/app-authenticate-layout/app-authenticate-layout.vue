@@ -12,10 +12,8 @@
 <script>
 	export default {
 		name: "app-authenticate-layout",
-		data() {
-			return {
-
-			};
+		options: {
+			virtualHost: true
 		}
 	}
 </script>
