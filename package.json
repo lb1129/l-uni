@@ -1,0 +1,19 @@
+{
+  "name": "l-uni",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <a href=\"https://lb1129.github.io/l-uni/\">\r     <img width=\"100\" src=\"https://github.com/lb1129/l-uni/blob/master/static/image/logo.png\">\r   </a>\r </p>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lb1129/l-uni.git"
+  },
+  "keywords": [],
+  "author": "Viho Lei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lb1129/l-uni/issues"
+  },
+  "homepage": "https://github.com/lb1129/l-uni#readme",
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  }
+}
