@@ -2,35 +2,32 @@
 	<app-authenticate-layout>
 		<uni-forms ref="form" :rules="rules" :model="model" :label-width="0">
 			<uni-forms-item name="password">
-				<uni-easyinput clearable v-model="model.password" type="password" :inputBorder="false"
+				<uni-easyinput :primaryColor="$theme" v-model="model.password" type="password" :inputBorder="false"
 					:placeholder="$t('newPassword')" />
 			</uni-forms-item>
 			<uni-forms-item name="confirmPassword">
-				<uni-easyinput clearable v-model="model.confirmPassword" type="password" :inputBorder="false"
-					:placeholder="$t('confirmPassword')" />
+				<uni-easyinput :primaryColor="$theme" v-model="model.confirmPassword" type="password"
+					:inputBorder="false" :placeholder="$t('confirmPassword')" />
 			</uni-forms-item>
 			<uni-forms-item name="phone">
-				<uni-easyinput type="number" maxlength="11" v-model="model.phone" :inputBorder="false"
-					:placeholder="$t('mobileNumber')" />
+				<uni-easyinput :primaryColor="$theme" type="number" maxlength="11" v-model="model.phone"
+					:inputBorder="false" :placeholder="$t('mobileNumber')" />
 			</uni-forms-item>
 			<uni-row :gutter="16">
 				<uni-col :span="13">
 					<uni-forms-item name="code">
-						<uni-easyinput v-model="model.code" :inputBorder="false"
+						<uni-easyinput :primaryColor="$theme" v-model="model.code" :inputBorder="false"
 							:placeholder="$t('verificationCode')" />
 					</uni-forms-item>
 				</uni-col>
 				<uni-col :span="11">
-					<button :disabled="codeTime > 0" style="font-size: 14px;"
-						@click="getCodeHandler">{{codeText}}</button>
+					<app-button :disabled="codeTime > 0" :custom-style="{fontSize: '14px'}"
+						@click="getCodeHandler">{{codeText}}</app-button>
 				</uni-col>
 			</uni-row>
 			<app-text like-link @click="clickHandler">{{$t('haveAnAccount')}}</app-text>
 			<app-gap gap="20px"></app-gap>
-			<button :style="{
-				color: '#fff',
-				backgroundColor: theme
-			}" @click="confirmHandler" :loading="loading">{{$t('confirm')}}</button>
+			<app-button @click="confirmHandler" :loading="loading">{{$t('confirm')}}</app-button>
 		</uni-forms>
 		<app-gap></app-gap>
 	</app-authenticate-layout>
@@ -40,7 +37,6 @@
 	export default {
 		data() {
 			return {
-				theme: '#007aff',
 				loading: false,
 				codeTime: 0,
 				model: {
@@ -111,9 +107,9 @@
 				}
 			},
 			async confirmHandler() {
-				this.loading = true
 				try {
 					const values = await this.$refs.form.validate()
+					this.loading = true
 					// TODO find password by api 
 					// success navigate to login
 					setTimeout(() => {
