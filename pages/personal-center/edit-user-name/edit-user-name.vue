@@ -1,8 +1,8 @@
 <template>
 	<uni-easyinput :primary-color="$theme" focus :input-border="false" v-model="innerValue"
 		:placeholder="$t('pleaseEnterUserName')"></uni-easyinput>
-	<view class="edit-nickname">
-		<text class="edit-nickname-text">{{$t('userNameRule')}}</text>
+	<view class="edit-user-name">
+		<text class="edit-user-name-text">{{$t('userNameRule')}}</text>
 		<app-gap gap="50px"></app-gap>
 		<app-button :loading="loading" @click="confirmHandler">{{$t('confirm')}}</app-button>
 	</view>
@@ -10,7 +10,6 @@
 
 <script>
 	import {
-		mapGetters,
 		mapActions
 	} from 'vuex'
 	export default {
@@ -19,9 +18,6 @@
 				innerValue: '',
 				loading: false
 			}
-		},
-		computed: {
-			...mapGetters(['nickname'])
 		},
 		methods: {
 			confirmHandler() {
@@ -38,11 +34,15 @@
 						title: message
 					})
 				} else {
-					// call edit nickname api
-					// update userInfo store
-					// this.setUserInfo(userInfo)
 					this.loading = true
+					// call edit userInfo api
+					// update userInfo store
+
+					// mock serve
 					setTimeout(() => {
+						this.setUserInfo({
+							userName: this.innerValue
+						})
 						this.loading = false
 						uni.navigateBack()
 					}, 500)
@@ -51,15 +51,18 @@
 			...mapActions(['setUserInfo'])
 		},
 		watch: {
-			nickname(newValue) {
-				this.innerValue = newValue
+			'$userInfo.userName': {
+				handler(newValue) {
+					this.innerValue = newValue
+				},
+				immediate: true
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.edit-nickname {
+	.edit-user-name {
 		padding: 0 16px;
 
 		&-text {
