@@ -4,7 +4,7 @@
 			margin: '45px 0 10px 0'
 		}"></app-avatar>
 		<view>
-			<text>viho</text>
+			<text>{{$userInfo.userName}}</text>
 		</view>
 	</view>
 	<uni-list>
@@ -17,6 +17,12 @@
 </template>
 
 <script>
+	import {
+		tokenStorage
+	} from '@/storage/index.js'
+	import {
+		logoutServe
+	} from '@/serves/login.js'
 	export default {
 		data() {
 			return {
@@ -30,21 +36,24 @@
 					content: this.$t('areYouSureToLogOut'),
 					cancelText: this.$t('cancel'),
 					confirmText: this.$t('confirm'),
-					success: (res) => {
+					success: async (res) => {
 						if (res.confirm) {
-							// TODO call logout api
 							uni.showToast({
 								icon: 'none',
 								title: this.$t('signingOutPleaseWait'),
 								mask: true,
 								duration: 60000
 							})
-							setTimeout(() => {
+							try {
+								await logoutServe()
+								tokenStorage.clear()
 								uni.hideToast()
-								uni.redirectTo({
+								uni.reLaunch({
 									url: '/pages/login/login'
 								})
-							}, 500)
+							} catch (e) {
+								uni.hideToast()
+							}
 						}
 					}
 				});
