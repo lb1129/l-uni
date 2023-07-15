@@ -10,7 +10,8 @@
 				<app-avatar :src="avatarUrl" width="40px" height="40px"></app-avatar>
 			</template>
 		</uni-list-item>
-		<uni-list-item :title="$t('nickname')" to="/pages/personal-center/edit-nickname/edit-nickname" showArrow right-text="viho">
+		<uni-list-item :title="$t('userName')" to="/pages/personal-center/edit-user-name/edit-user-name" showArrow
+			:right-text="$userInfo.userName">
 		</uni-list-item>
 	</uni-list>
 </template>
