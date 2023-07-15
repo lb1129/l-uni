@@ -1,5 +1,6 @@
 import {
-	themeKey
+	themeKey,
+	tokenKey
 } from './keys.js'
 
 export const themeStorage = {
@@ -11,5 +12,17 @@ export const themeStorage = {
 	},
 	clear() {
 		uni.removeStorageSync(themeKey)
+	}
+}
+
+export const tokenStorage = {
+	get() {
+		return uni.getStorageSync(tokenKey)
+	},
+	set(value) {
+		uni.setStorageSync(tokenKey, value)
+	},
+	clear() {
+		uni.removeStorageSync(tokenKey)
 	}
 }
