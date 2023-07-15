@@ -1,22 +1,30 @@
 {
 	// BUG 暗黑主题与国际化同时使用时 语言切换时配置在此处的国际化将不起作用
-	"pages": [{
-		"path": "pages/login/login",
-		"style": {
-			"navigationBarTitleText": "%login%"
+	"pages": [
+		{
+			"path": "pages/start/start",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "%login%"
+			}
+		}, {
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "%home%",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "%me%"
+			}
 		}
-	}, {
-		"path": "pages/home/home",
-		"style": {
-			"navigationBarTitleText": "%home%",
-			"enablePullDownRefresh": true
-		}
-	}, {
-		"path": "pages/me/me",
-		"style": {
-			"navigationBarTitleText": "%me%"
-		}
-	}],
+	],
 	"subPackages": [{
 			"root": "pages/authenticate",
 			"pages": [{
