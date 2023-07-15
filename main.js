@@ -5,8 +5,8 @@ import {
 import {
 	createI18n
 } from 'vue-i18n'
-import store from '@/store/index'
-import messages from './locale/index'
+import store from '@/store/index.js'
+import messages from './locale/index.js'
 // #ifdef MP-WEIXIN
 import {
 	camelCase
@@ -28,6 +28,9 @@ export function createApp() {
 		computed: {
 			$theme() {
 				return this.$store.state.theme
+			},
+			$userInfo() {
+				return this.$store.state.userInfo
 			}
 		},
 		onShow() {
