@@ -1,8 +1,8 @@
 <template>
 	<app-authenticate-layout>
 		<uni-forms ref="form" :rules="rules" :model="model" :label-width="0">
-			<uni-forms-item name="username">
-				<uni-easyinput :primaryColor="$theme" :inputBorder="false" v-model="model.username"
+			<uni-forms-item name="userName">
+				<uni-easyinput :primaryColor="$theme" :inputBorder="false" v-model="model.userName"
 					:placeholder="$t('PhoneOrUserName')" />
 			</uni-forms-item>
 			<uni-forms-item name="password">
@@ -44,17 +44,30 @@
 </template>
 
 <script>
+	import {
+		mapActions
+	} from 'vuex'
+	import {
+		loginServe
+	} from '@/serves/login.js'
+	import {
+		getMenuServe,
+		getUserInfoServe
+	} from '@/serves/user.js'
+	import {
+		tokenStorage
+	} from '@/storage/index.js'
 	export default {
 		data() {
 			return {
 				loading: false,
 				agree: false,
 				model: {
-					username: '',
+					userName: '',
 					password: ''
 				},
 				rules: {
-					username: {
+					userName: {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('pleaseEnterPhoneOrUserName')
@@ -84,7 +97,7 @@
 			},
 			async loginHandler() {
 				try {
-					const values = await this.$refs.form.validate()
+					await this.$refs.form.validate()
 					if (!this.agree) {
 						this.$refs.dialog.open()
 						return
@@ -92,19 +105,24 @@
 					this.login()
 				} catch (e) {}
 			},
-			login() {
+			async login() {
 				this.loading = true
-				// TODO login by api
-				// success get userinfo and menuData
-				// navigate to home page
-				setTimeout(() => {
-					// this.model
+				try {
+					const res = await loginServe(this.model)
+					tokenStorage.set(res.data)
+					const menuData = await getMenuServe()
+					const userInfo = await getUserInfoServe()
+					this.setMenuData(menuData)
+					this.setUserInfo(userInfo)
+					this.loading = false
 					uni.switchTab({
 						url: '/pages/home/home'
 					})
+				} catch (e) {
 					this.loading = false
-				}, 500)
-			}
+				}
+			},
+			...mapActions(['setUserInfo', 'setMenuData'])
 		}
 	}
 </script>
