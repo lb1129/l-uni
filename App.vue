@@ -1,21 +1,42 @@
 <script>
 	import {
 		themeStorage
-	} from '@/storage/index'
+	} from '@/storage/index.js'
 	import {
 		mapActions
 	} from 'vuex'
+	// #ifdef APP-PLUS
+	import '@/interceptor/chooseImage/index.js'
+	// #endif
+	import '@/interceptor/request/index.js'
+	import '@/interceptor/router/index.js'
+	import {
+		isLoginServe
+	} from '@/serves/login.js'
+	import {
+		getMenuServe,
+		getUserInfoServe
+	} from '@/serves/user.js'
 	export default {
-		onLaunch: function() {
+		async onLaunch() {
+			// 初始主题色
 			const theme = themeStorage.get()
 			if (theme) {
 				this.setTheme(theme)
 			}
+			// 如果已登录 获取用户信息 菜单数据 并更新 store
+			try {
+				await isLoginServe()
+				const userInfoRes = await getUserInfoServe()
+				const menuRes = await getMenuServe()
+				this.setUserInfo(userInfoRes.data)
+				this.setMenuData(menuRes.data)
+			} catch (e) {}
 		},
 		onShow: function() {},
 		onHide: function() {},
 		methods: {
-			...mapActions(['setTheme'])
+			...mapActions(['setTheme', 'setUserInfo', 'setMenuData'])
 		}
 	}
 </script>
