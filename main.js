@@ -34,6 +34,7 @@ export function createApp() {
 			}
 		},
 		onShow() {
+			// 页面onShow时 处理原生导航栏背景多主题，导航栏标题多语言，tabbar多主题多语言
 			setTimeout(() => {
 				const pages = getCurrentPages();
 				const page = pages[pages.length - 1];
@@ -67,11 +68,13 @@ export function createApp() {
 						})
 					}
 					// #ifdef MP-WEIXIN
-					const arr = page.route.split('/')
-					const str = arr[arr.length - 1]
-					uni.setNavigationBarTitle({
-						title: this.$t(camelCase(str))
-					})
+					if (page.route !== 'pages/start/start') {
+						const arr = page.route.split('/')
+						const str = arr[arr.length - 1]
+						uni.setNavigationBarTitle({
+							title: this.$t(camelCase(str))
+						})
+					}
 					// #endif
 				}
 			})
