@@ -4,9 +4,15 @@ import {
 	logout_api,
 	isLogin_api
 } from '@/interceptor/request/api.js'
+import {
+	loginServeMock,
+	logoutServeMock,
+	isLoginServeMock
+} from '@/mock/index.js'
 
 export const loginServe = (ops) => {
-	const p = uni.request({
+	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+	const p = loginServeMock({
 		url: login_api,
 		data: ops,
 		method: 'POST'
@@ -16,7 +22,8 @@ export const loginServe = (ops) => {
 }
 
 export const logoutServe = () => {
-	const p = uni.request({
+	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+	const p = logoutServeMock({
 		url: logout_api
 	})
 	isAuthenticated.value = new Promise((resolve, reject) => {
@@ -26,7 +33,8 @@ export const logoutServe = () => {
 }
 
 export const isLoginServe = () => {
-	const p = uni.request({
+	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+	const p = isLoginServeMock({
 		url: isLogin_api
 	})
 	isAuthenticated.value = p
