@@ -7,7 +7,7 @@
 				</view>
 			</template>
 			<template v-slot:footer>
-				<app-avatar :src="avatarUrl" width="40px" height="40px"></app-avatar>
+				<app-avatar :src="$userInfo.avatar" width="40px" height="40px"></app-avatar>
 			</template>
 		</uni-list-item>
 		<uni-list-item :title="$t('userName')" to="/pages/personal-center/edit-user-name/edit-user-name" showArrow
@@ -17,20 +17,51 @@
 </template>
 
 <script>
-	import permision from "@/common/permission.js"
+	import {
+		editUserInfoServe
+	} from '@/serves/user.js'
+	import {
+		mapActions
+	} from 'vuex'
 	export default {
 		data() {
 			return {
-				avatarUrl: '/static/image/user.png'
+
 			}
 		},
 		methods: {
-			async changeAvatarHandler() {
+			...mapActions(['setUserInfo']),
+			changeAvatarHandler() {
 				uni.chooseImage({
 					count: 1,
 					sourceType: ['camera', 'album'],
 					sizeType: ['compressed', 'original'],
 					success: (res) => {
+						// mock serve
+						// #ifdef H5
+						const render = new FileReader()
+						render.readAsDataURL(res.tempFiles[0])
+						render.onload = (e) => {
+							editUserInfoServe({
+								avatar: e.target.result
+							}).then(res => {
+								this.setUserInfo(res.data)
+							})
+						}
+						// #endif
+						// #ifdef APP-PLUS | MP
+						uni.saveFile({
+							tempFilePath: res.tempFilePaths[0],
+							success: (res) => {
+								editUserInfoServe({
+									avatar: res.savedFilePath
+								}).then(res => {
+									this.setUserInfo(res.data)
+								})
+							}
+						})
+						// #endif
+
 						// TODO call upload api
 						// uni.uploadFile({
 						// 	url: '',
