@@ -4,7 +4,7 @@ export const login_api = '/api/login'
 export const logout_api = '/api/logout'
 // get
 export const menu_api = '/api/menu'
-// get
+// get post
 export const userInfo_api = '/api/userInfo'
 // get
 export const isLogin_api = '/api/isLogin'
