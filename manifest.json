@@ -5,14 +5,13 @@
 	"versionName": "1.0.0",
 	"versionCode": "100",
 	"transformPx": false,
-	"h5": {
-        
-    },
+	"h5": {},
 	"app-plus": {
 		"optimization": {
 			"subPackages": true
 		},
 		"runmode": "liberate", // 开启分包优化后，必须配置资源释放模式
+
 		/* 5+App特有相关 */
 		"usingComponents": true,
 		"nvueCompiler": "uni-app",
@@ -58,7 +57,8 @@
 	"mp-weixin": {
 		"appid": "wxdf08a3de4f36c307",
 		"setting": {
-			"urlCheck": false
+			"urlCheck": true,
+			"minified": true
 		},
 		"usingComponents": true,
 		"lazyCodeLoading": "requiredComponents"
