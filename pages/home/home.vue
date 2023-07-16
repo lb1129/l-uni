@@ -1,6 +1,11 @@
 <template>
 	<template v-for="menu in menuData" :key="menu.name">
-		<uni-section :title="menu.name" type="line" padding>
+		<uni-section :title="menu.name" padding>
+			<template v-slot:decoration>
+				<view class="home-decoration" :style="{
+					backgroundColor: $theme
+				}"></view>
+			</template>
 			<uni-grid :column="4">
 				<uni-grid-item v-for="child in menu.children" :key="child.name">
 					<app-icon-text :icon-type="child.icon"
@@ -13,32 +18,47 @@
 </template>
 
 <script>
-	import userMenuData from '@/mock/userMenuData.json'
+	import {
+		mapState,
+		mapActions
+	} from 'vuex'
+	import {
+		getMenuServe
+	} from '@/serves/user.js'
 	export default {
 		data() {
 			return {
-				menuData: userMenuData.viho
+
 			}
 		},
-		onLoad() {
-
+		computed: {
+			...mapState(['menuData'])
 		},
 		methods: {
 			clickHandler(url) {
 				uni.navigateTo({
 					url
 				})
-			}
+			},
+			...mapActions(['setMenuData'])
 		},
 		// 页面级别的下拉刷新
 		onPullDownRefresh() {
-			setTimeout(() => {
+			getMenuServe().then((res) => {
+				this.setMenuData(menuRes.data)
 				uni.stopPullDownRefresh()
-			}, 500)
+			}).catch(err => {
+				uni.stopPullDownRefresh()
+			})
 		}
 	}
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+	.home-decoration {
+		width: 4px;
+		height: 12px;
+		border-radius: 10px;
+		margin-right: 6px;
+	}
 </style>
