@@ -31,7 +31,7 @@
 			</uni-row>
 			<app-text like-link @click="clickHandler">{{$t('haveAnAccount')}}</app-text>
 			<app-gap gap="20px"></app-gap>
-			<app-button @click="registerHandler" :loading="loading">{{$t('register')}}</app-button>
+			<app-button @click="registerHandler">{{$t('register')}}</app-button>
 		</uni-forms>
 		<app-gap></app-gap>
 	</app-authenticate-layout>
@@ -41,7 +41,6 @@
 	export default {
 		data() {
 			return {
-				loading: false,
 				codeTime: 0,
 				model: {
 					username: '',
@@ -120,14 +119,10 @@
 			async registerHandler() {
 				try {
 					const values = await this.$refs.form.validate()
-					this.loading = true
 					// TODO register by api 
 					// success navigate to login
-					setTimeout(() => {
-						this.loading = false
-					}, 500)
 				} catch (e) {
-					this.loading = false
+
 				}
 			}
 		}

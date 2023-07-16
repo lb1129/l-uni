@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<app-gap gap="20px"></app-gap>
-		<app-button :loading="loading" @click="loginHandler">{{$t('login')}}</app-button>
+		<app-button @click="loginHandler">{{$t('login')}}</app-button>
 		<app-gap></app-gap>
 		<view>
 			<checkbox-group style="display: inline-block; margin-right: 2px;" @change="agreeChangeHandler">
@@ -60,7 +60,6 @@
 	export default {
 		data() {
 			return {
-				loading: false,
 				agree: false,
 				model: {
 					userName: '',
@@ -106,21 +105,19 @@
 				} catch (e) {}
 			},
 			async login() {
-				this.loading = true
 				try {
 					const res = await loginServe(this.model)
 					tokenStorage.set(res.data)
-					const menuData = await getMenuServe()
-					const userInfo = await getUserInfoServe()
-					this.setMenuData(menuData)
-					this.setUserInfo(userInfo)
-					this.loading = false
+					getUserInfoServe().then(res => {
+						this.setUserInfo(res.data)
+					})
+					getMenuServe().then(res => {
+						this.setMenuData(res.data)
+					})
 					uni.switchTab({
 						url: '/pages/home/home'
 					})
-				} catch (e) {
-					this.loading = false
-				}
+				} catch (e) {}
 			},
 			...mapActions(['setUserInfo', 'setMenuData'])
 		}
