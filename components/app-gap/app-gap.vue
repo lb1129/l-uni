@@ -20,6 +20,6 @@
 
 <style lang="scss">
 	.app-gap {
-		background-color: $app-grey;
+		background-color: $uni-bg-color;
 	}
 </style>
