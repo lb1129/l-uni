@@ -1,7 +1,6 @@
 import {
 	tokenStorage
 } from '@/storage/index.js'
-import mockServer from '@/mock/index.js'
 import {
 	authenticatePageUrls,
 	specialPageUrls
@@ -11,13 +10,7 @@ import {
 } from '@/common/pathFull.js'
 import isAuthenticated from '@/interceptor/router/isAuthenticated.js'
 
-// mock serve baseUrl 真实环境请切换
-// #ifdef H5 | APP-PLUS
 const baseUrl = ''
-// #endif
-// #ifdef MP
-const baseUrl = 'http://mock.server.com'
-// #endif
 const timeout = 60000
 
 uni.addInterceptor('request', {
@@ -26,21 +19,20 @@ uni.addInterceptor('request', {
 			// 补全url
 			args.url = `${baseUrl}${args.url}`
 			if (!args.header) args.header = {}
-			// // 请求头 token
+			// 请求头 Bearer token
 			args.header.Authorization = tokenStorage.get()
 			// 请求头 语言
 			args.header['Accept-Language'] = uni.getLocale()
 		}
 		if (!args.timeout) args.timeout = timeout
 	},
-	success(res, req) {
-		// mock server
-		mockServer(req, res)
-	},
 	async returnValue(p) {
 		const res = await p
 		// 成功 返回 data
 		if (res.statusCode >= 200 && res.statusCode < 300) {
+			// 开发环境 log data
+			if (process.env.NODE_ENV === 'development')
+				console.log(res.data)
 			return res.data
 		} else {
 			// 401 跳转登录页
