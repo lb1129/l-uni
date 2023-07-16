@@ -44,11 +44,14 @@
 	"cancel": "取消",
 	"incorrectUsernameLength": "用户名长度不正确",
 	"incorrectUsernameFormat": "用户名格式不正确",
-	"userNameRule": "4-10个字符，可由中英文，数字，"_"，"-"组成",
+	"userNameRule": "4-10个字符，可由中英文，数字，\"_\"，\"-\"组成",
 	"systemStartupInProgress": "系统启动中...",
-	"product.list": "产品列表",
-	"product.detail": "产品详情",
-	"order.list": "订单列表",
-	"order.detail": "订单详情",
-	"order.place.order": "下单"
+	"productList": "产品列表",
+	"productDetail": "产品详情",
+	"searchByName": "按名称搜索",
+	"edit": "编辑",
+	"delete": "删除",
+	"areYouSureDelete": "确定删除吗？",
+	"pageNotFound": "页面不存在",
+	"back": "返回"
 }

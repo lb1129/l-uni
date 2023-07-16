@@ -46,9 +46,12 @@
 	"incorrectUsernameFormat": "Incorrect username format",
 	"userNameRule": "4-10 characters, which can be composed of Chinese and English, numbers, \"_\", \"-\"",
 	"systemStartupInProgress": "System startup in progress ...",
-	"product.list": "Product list",
-	"product.detail": "Product detail",
-	"order.list": "Order list",
-	"order.detail": "Order detail",
-	"order.place.order": "Place order"
+	"productList": "Product list",
+	"productDetail": "Product detail",
+	"searchByName": "Search by name",
+	"edit": "Edit",
+	"delete": "Delete",
+	"areYouSureDelete": "Are you sure delete?",
+	"pageNotFound": "Page not found",
+	"back": "Back"
 }
