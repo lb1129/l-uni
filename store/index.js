@@ -21,11 +21,6 @@ const store = createStore({
 			state.menuData = menuData
 		}
 	},
-	getters: {
-		nickname(state) {
-			return state.userInfo.nickname
-		}
-	},
 	actions: {
 		setTheme({
 			commit
