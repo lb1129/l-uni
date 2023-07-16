@@ -4,7 +4,7 @@
 	<view class="edit-user-name">
 		<text class="edit-user-name-text">{{$t('userNameRule')}}</text>
 		<app-gap gap="50px"></app-gap>
-		<app-button :loading="loading" @click="confirmHandler">{{$t('confirm')}}</app-button>
+		<app-button @click="confirmHandler">{{$t('confirm')}}</app-button>
 	</view>
 </template>
 
@@ -12,15 +12,17 @@
 	import {
 		mapActions
 	} from 'vuex'
+	import {
+		editUserInfoServe
+	} from '@/serves/user.js'
 	export default {
 		data() {
 			return {
-				innerValue: '',
-				loading: false
+				innerValue: ''
 			}
 		},
 		methods: {
-			confirmHandler() {
+			async confirmHandler() {
 				const len = this.innerValue.length
 				let message = ''
 				if (len < 4 || len > 10) {
@@ -34,18 +36,13 @@
 						title: message
 					})
 				} else {
-					this.loading = true
-					// call edit userInfo api
-					// update userInfo store
-
-					// mock serve
-					setTimeout(() => {
-						this.setUserInfo({
+					try {
+						const res = await editUserInfoServe({
 							userName: this.innerValue
 						})
-						this.loading = false
+						this.setUserInfo(res.data)
 						uni.navigateBack()
-					}, 500)
+					} catch (e) {}
 				}
 			},
 			...mapActions(['setUserInfo'])
