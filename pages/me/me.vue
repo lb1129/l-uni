@@ -1,6 +1,6 @@
 <template>
 	<view class="me-header">
-		<app-avatar src="/static/image/user.png" width="75px" height="75px" :custom-style="{
+		<app-avatar :src="$userInfo.avatar" width="75px" height="75px" :custom-style="{
 			margin: '45px 0 10px 0'
 		}"></app-avatar>
 		<view>
