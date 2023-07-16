@@ -3,35 +3,12 @@
 		"name": "产品管理",
 		"children": [{
 			"name": "产品列表",
-			"path": "/pages/product-manage/list/list",
+			"path": "/pages/product-manage/product-list/product-list",
 			"icon": "shop",
 			"operateAuth": {
-				"add": 1,
-				"delete": 0,
-				"edit": 1,
-				"detail": 1
-			}
-		}]
-	}, {
-		"name": "订单管理",
-		"children": [{
-			"name": "订单列表",
-			"path": "/pages/order-manage/list/list",
-			"icon": "shop",
-			"operateAuth": {
-				"add": 1,
-				"delete": 0,
-				"edit": 1,
-				"detail": 1
-			}
-		},{
-			"name": "下单",
-			"path": "/pages/order-manage/place-order/place-order",
-			"icon": "shop",
-			"operateAuth": {
-				"add": 1,
-				"delete": 0,
-				"edit": 1,
+				"add": 0,
+				"delete": 1,
+				"edit": 0,
 				"detail": 1
 			}
 		}]

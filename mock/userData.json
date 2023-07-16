@@ -1,5 +1,10 @@
 {
-  "admin": { "userName": "admin" },
-  "viho": { "userName": "viho" },
-  "user": { "userName": "user" }
+	"viho": {
+		"userName": "viho",
+		"avatar": "/static/image/user.png"
+	},
+	"user": {
+		"userName": "user",
+		"avatar": "/static/image/user.png"
+	}
 }
