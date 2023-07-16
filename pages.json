@@ -1,27 +1,31 @@
 {
 	// BUG 暗黑主题与国际化同时使用时 语言切换时配置在此处的国际化将不起作用
 	"pages": [
+		// #ifndef H5
 		{
 			"path": "pages/start/start",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
+		// #endif
 		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "%login%"
-			}
-		}, {
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "%home%",
 				"enablePullDownRefresh": true
 			}
-		}, {
+		},
+		{
 			"path": "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "%me%"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "%login%"
 			}
 		}
 	],
@@ -73,39 +77,25 @@
 		}, {
 			"root": "pages/product-manage",
 			"pages": [{
-				"path": "list/list",
+				"path": "product-list/product-list",
 				"style": {
-					"navigationBarTitleText": "%product.list%"
+					"navigationBarTitleText": "%productList%",
+					"enablePullDownRefresh": true
 				}
 
 			}, {
-				"path": "detail/detail",
+				"path": "product-detail/product-detail",
 				"style": {
-					"navigationBarTitleText": "%product.detail%"
-				}
-			}]
-		}, {
-			"root": "pages/order-manage",
-			"pages": [{
-				"path": "list/list",
-				"style": {
-					"navigationBarTitleText": "%order.list%"
-				}
-
-			}, {
-				"path": "detail/detail",
-				"style": {
-					"navigationBarTitleText": "%order.detail%"
-				}
-			}, {
-				"path": "place-order/place-order",
-				"style": {
-					"navigationBarTitleText": "%order.place.order%"
+					"navigationBarTitleText": "%productDetail%"
 				}
 			}]
 		}
 	],
 	"preloadRule": {
+		"pages/home/home": {
+			"network": "all",
+			"packages": ["pages/product-manage"]
+		},
 		"pages/login/login": {
 			"network": "all",
 			"packages": ["pages/authenticate"]
@@ -117,7 +107,8 @@
 	},
 	"globalStyle": {
 		"navigationBarBackgroundColor": "#f5f5f5",
-		"navigationBarTextStyle": "white"
+		"navigationBarTextStyle": "white",
+		"maxWidth": 996
 	},
 	"tabBar": {
 		"color": "#d6d6d6",
