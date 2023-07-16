@@ -7,7 +7,7 @@ import {
 	pathFull
 } from '@/common/pathFull.js'
 
-// 全端路由跳转方法拦截器 处理应用内跳转
+// 非H5端 路由跳转方法拦截器 处理应用内跳转
 
 const validate = async (args) => {
 	const url = pathFull(args.url)
