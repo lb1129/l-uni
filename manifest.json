@@ -10,6 +10,9 @@
 			"treeShaking": {
 				"enable": true
 			}
+		},
+		"router": {
+			"base": "/l-uni"
 		}
 	},
 	"app-plus": {
