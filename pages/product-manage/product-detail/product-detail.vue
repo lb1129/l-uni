@@ -1,13 +1,9 @@
 <template>
 	<swiper class="detail-swiper" circular indicator-dots :indicator-color="$theme">
-		<swiper-item>
+		<swiper-item v-for="img in record.images" :key="img">
 			<view class="detail-swiper-item">
-				<image mode="aspectFill" class="detail-swiper-item-image" src="https://img14.360buyimg.com/n1/s450x450_jfs/t1/141480/8/14039/48663/5fab0686E7d32b85f/bb2489ac5d2b4ed5.jpg"></image>
-			</view>
-		</swiper-item>
-		<swiper-item>
-			<view class="detail-swiper-item">
-				<image mode="aspectFill" class="detail-swiper-item-image" src="https://img13.360buyimg.com/n1/s450x450_jfs/t1/199961/6/36523/18216/647ef573F5cd51081/05b06c8d982c2162.jpg"></image>
+				<image mode="aspectFill" class="detail-swiper-item-image" :src="img">
+				</image>
 			</view>
 		</swiper-item>
 	</swiper>
@@ -51,6 +47,7 @@
 	import {
 		getProductByIdServe
 	} from '@/serves/product.js'
+	import config from '@/config.json'
 	export default {
 		data() {
 			return {
@@ -59,12 +56,99 @@
 		},
 		inheritAttrs: false,
 		async onLoad(e) {
-			const id = e.id
-			if (id) {
+			this.id = e.id
+			if (this.id) {
 				try {
-					const res = await getProductByIdServe(id)
+					const res = await getProductByIdServe(this.id)
 					this.record = res.data
 				} catch (e) {}
+			}
+		},
+		// 微信小程序 分享给朋友
+		onShareAppMessage(res) {
+			return {
+				title: this.record.name,
+				path: `/pages/product-manage/product-detail/product-detail?id=${this.id}`
+			}
+		},
+		// 微信小程序 分享到微信朋友圈
+		onShareTimeline() {
+			return {
+				title: this.record.name
+			}
+		},
+		// app 原生导航栏点击
+		onNavigationBarButtonTap(e) {
+			if (e.index === 0) {
+				// NOTE 微信开放平台申请appId 然后使用微信分享
+				// NOTE 分享成微信小程序
+				// NOTE app 必须与 微信小程序 绑定同一微信开放平台账号
+				// uni.share({
+				// 	provider: 'weixin',
+				// 	scene: "WXSceneSession",
+				// 	type: 5,
+				// 	imageUrl: this.record.images[0],
+				// 	title: this.record.name,
+				// 	miniProgram: {
+				// 		id: 'gh_6877f5cad59a',
+				// 		path: `pages/product-manage/product-detail/product-detail?id=${this.id}`,
+				// 		type: 0,
+				// 		webUrl: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`
+				// 	},
+				// 	success: (res) => {
+				// 		uni.showToast({
+				// 			icon: 'none',
+				// 			title: this.$t('shareSuccess')
+				// 		})
+				// 	},
+				// 	fail: (err) => {
+				// 		uni.showToast({
+				// 			icon: 'none',
+				// 			title: this.$t('shareFail')
+				// 		})
+				// 	}
+				// })
+				// 分享成图文
+				if (process.env.NODE_ENV === 'development')
+					uni.share({
+						provider: "weixin",
+						scene: "WXSceneSession",
+						type: 0,
+						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`,
+						title: this.record.name,
+						summary: this.record.desc,
+						imageUrl: this.record.images[0],
+						success: (res) => {
+							uni.showToast({
+								icon: 'none',
+								title: this.$t('shareSuccess')
+							})
+						},
+						fail: (err) => {
+							uni.showToast({
+								icon: 'none',
+								title: this.$t('shareFail')
+							})
+						}
+					})
+				// 系统分享
+				if (process.env.NODE_ENV === 'production')
+					uni.shareWithSystem({
+						summary: '',
+						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`,
+						success: () => {
+							uni.showToast({
+								icon: 'none',
+								title: this.$t('shareSuccess')
+							})
+						},
+						fail: () => {
+							uni.showToast({
+								icon: 'none',
+								title: this.$t('shareFail')
+							})
+						}
+					})
 			}
 		}
 	}
