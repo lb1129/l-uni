@@ -1,11 +1,13 @@
-import isAuthenticated from '@/interceptor/router/isAuthenticated.js'
+import isAuthenticated from '@/auth/isAuthenticated.js'
 import {
 	login_api,
+	login_wx_api,
 	logout_api,
 	isLogin_api
 } from '@/interceptor/request/api.js'
 import {
 	loginServeMock,
+	loginByWxServeMock,
 	logoutServeMock,
 	isLoginServeMock
 } from '@/mock/index.js'
@@ -17,7 +19,30 @@ export const loginServe = (ops) => {
 		data: ops,
 		method: 'POST'
 	})
-	isAuthenticated.value = p
+	isAuthenticated.value = new Promise((resolve, reject) => {
+		p.then(() => {
+			resolve('isAuthenticated true')
+		}).catch(() => {
+			reject('isAuthenticated false')
+		})
+	})
+	return p
+}
+
+export const loginByWxServe = (ops) => {
+	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+	const p = loginByWxServeMock({
+		url: login_wx_api,
+		data: ops,
+		method: 'POST'
+	})
+	isAuthenticated.value = new Promise((resolve, reject) => {
+		p.then(() => {
+			resolve('isAuthenticated true')
+		}).catch(() => {
+			reject('isAuthenticated false')
+		})
+	})
 	return p
 }
 
@@ -27,7 +52,11 @@ export const logoutServe = () => {
 		url: logout_api
 	})
 	isAuthenticated.value = new Promise((resolve, reject) => {
-		p.then(reject).catch(resolve)
+		p.then(() => {
+			reject('isAuthenticated false')
+		}).catch(() => {
+			resolve('isAuthenticated true')
+		})
 	})
 	return p
 }
