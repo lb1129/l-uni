@@ -33,10 +33,20 @@ const store = createStore({
 		}, userInfo) {
 			commit('updateUserInfo', userInfo)
 		},
+		resetUserInfo({
+			commit
+		}) {
+			commit('updateUserInfo', {})
+		},
 		setMenuData({
 			commit
 		}, menuData) {
 			commit('updateMenuData', menuData)
+		},
+		resetMenuData({
+			commit
+		}) {
+			commit('updateMenuData', [])
 		}
 	},
 	modules: {}
