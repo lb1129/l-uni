@@ -8,6 +8,10 @@
   font-size: 16px;
 }
 
+.icon-empty:before {
+  content: "\e6a6";
+}
+
 .icon-user:before {
   content: "\e7ae";
 }
