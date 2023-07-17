@@ -56,5 +56,6 @@
 	"back": "返回",
 	"shareSuccess": "分享成功",
 	"shareFail": "分享失败",
-	"noAppId": "未申请微信开放平台appId"
+	"noAppId": "未申请微信开放平台appId",
+	"noData": "暂无数据"
 }

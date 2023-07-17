@@ -56,5 +56,6 @@
 	"back": "Back",
 	"shareSuccess": "Share success",
 	"shareFail": "Share fail",
-	"noAppId": "No appId"
+	"noAppId": "No appId",
+	"noData": "No data"
 }
