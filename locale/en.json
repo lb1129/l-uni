@@ -53,5 +53,8 @@
 	"delete": "Delete",
 	"areYouSureDelete": "Are you sure delete?",
 	"pageNotFound": "Page not found",
-	"back": "Back"
+	"back": "Back",
+	"shareSuccess": "Share success",
+	"shareFail": "Share fail",
+	"noAppId": "No appId"
 }

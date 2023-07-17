@@ -53,5 +53,8 @@
 	"delete": "删除",
 	"areYouSureDelete": "确定删除吗？",
 	"pageNotFound": "页面不存在",
-	"back": "返回"
+	"back": "返回",
+	"shareSuccess": "分享成功",
+	"shareFail": "分享失败",
+	"noAppId": "未申请微信开放平台appId"
 }
