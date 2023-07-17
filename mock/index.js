@@ -49,11 +49,16 @@ const mock = (fn, needAuth) => (req) => new Promise((resolve, reject) => {
 			data: err,
 			message: msg
 		})
-		if (msg !== '未登录')
+		if (msg === '未登录') {
+			uni.reLaunch({
+				url: '/pages/login/login'
+			})
+		} else {
 			uni.showToast({
 				icon: 'none',
 				title: msg
 			})
+		}
 	}
 	timer = setTimeout(() => {
 		if (needAuth) {
@@ -84,6 +89,17 @@ export const loginServeMock = mock((req, resolve, reject) => {
 	} else {
 		const token = userInfo.userName
 		resolve(token)
+	}
+})
+
+export const loginByWxServeMock = mock((req, resolve, reject) => {
+	const {
+		code
+	} = req.data
+	if (code) {
+		resolve('viho')
+	} else {
+		reject(null, '授权临时票据无效')
 	}
 })
 
