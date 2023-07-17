@@ -19,7 +19,7 @@
 
 ## 介绍
 
-通过组件及通用功能封装，尽量抹平各端差异，然后按规范套路去实现模块业务逻辑
+通过组件及通用功能封装，尽量抹平各端差异，按规范去实现模块业务逻辑
 
 ## 特性
 
@@ -28,9 +28,28 @@
 - 自定义图标
 - 组件化
 - 分包预加载
+- 拦截器
 - 登录跳转控制
 - 操作权限控制
+- 分享（暂未申请微信开放平台应用 appId）
+- 三方微信登录（暂未申请微信开放平台应用 appId）
 - vue3
+- ~~uniCloud~~（暂无）
+
+## 扫码体验
+
+  <span align="center">
+    <img src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/mp-weixin.jpg" width="180" height="180" />
+   <b>微信小程序</b>
+  </span>
+  <span align="center">
+    <img src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/apk.png" width="180" height="180" />
+    <b>安卓apk</b>
+  </span>
+  <span align="center">
+    <img src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/h5.png" width="180" height="180" />
+    <b>H5网站</b>
+  </span>
 
 ## License
 
