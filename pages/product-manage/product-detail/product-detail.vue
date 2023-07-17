@@ -136,12 +136,7 @@
 					uni.shareWithSystem({
 						summary: '',
 						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`,
-						success: () => {
-							uni.showToast({
-								icon: 'none',
-								title: this.$t('shareSuccess')
-							})
-						},
+						success: () => {},
 						fail: () => {
 							uni.showToast({
 								icon: 'none',
