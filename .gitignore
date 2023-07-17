@@ -1,4 +1,6 @@
 .hbuilderx/
 .vite/
-unpackage/
+unpackage/cache
+unpackage/dist
+unpackage/release
 node_modules/
