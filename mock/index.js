@@ -50,9 +50,12 @@ const mock = (fn, needAuth) => (req) => new Promise((resolve, reject) => {
 			message: msg
 		})
 		if (msg === '未登录') {
-			uni.reLaunch({
-				url: '/pages/login/login'
-			})
+			const pages = getCurrentPages()
+			const page = pages[pages.length - 1]
+			if (page.route !== 'pages/login/login')
+				uni.reLaunch({
+					url: '/pages/login/login'
+				})
 		} else {
 			uni.showToast({
 				icon: 'none',
