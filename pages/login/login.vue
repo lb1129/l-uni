@@ -3,11 +3,11 @@
 		<uni-forms ref="form" :rules="rules" :model="model" :label-width="0">
 			<uni-forms-item name="userName">
 				<uni-easyinput :primaryColor="$theme" :inputBorder="false" v-model="model.userName"
-					:placeholder="$t('PhoneOrUserName')" />
+					:placeholder="`${$t('PhoneOrUserName')} viho/user`" />
 			</uni-forms-item>
 			<uni-forms-item name="password">
 				<uni-easyinput :primaryColor="$theme" v-model="model.password" type="password" :inputBorder="false"
-					:placeholder="$t('password')" />
+					:placeholder="`${$t('password')} a123456`" />
 			</uni-forms-item>
 		</uni-forms>
 		<view>
@@ -89,10 +89,15 @@
 			}
 		},
 		methods: {
+			// #ifdef APP-PLUS | MP-WEIXIN
 			weixinLoginHandler() {
 				// 微信小程序 微信登录
 				// NOTE app 微信开放平台申请appId 然后使用微信登录
-				if (process.env.NODE_ENV === 'development')
+				let isMpWeixin = false
+				// #ifdef MP-WEIXIN
+				isMpWeixin = true
+				// #endif
+				if (process.env.NODE_ENV === 'development' || isMpWeixin)
 					uni.login({
 						provider: 'weixin',
 						onlyAuthorize: true,
@@ -113,6 +118,7 @@
 					title: this.$t('noAppId')
 				})
 			},
+			// #endif
 			navigato(url) {
 				uni.navigateTo({
 					url
