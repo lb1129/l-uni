@@ -38,18 +38,34 @@
 
 ## 扫码体验
 
-  <span align="center">
-    <img src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/mp-weixin.jpg" width="180" height="180" />
-   <b>微信小程序</b>
-  </span>
-  <span align="center">
-    <img src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/apk.png" width="180" height="180" />
-    <b>安卓apk</b>
-  </span>
-  <span align="center">
-    <img src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/h5.png" width="180" height="180" />
-    <b>H5网站</b>
-  </span>
+<table>
+  <tr>
+    <td align="center">
+      <img
+        src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/mp-weixin.jpg"
+        width="180"
+        height="180"
+      />
+      <div><b>微信小程序</b></div>
+    </td>
+    <td align="center">
+      <img
+        src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/apk.png"
+        width="180"
+        height="180"
+      />
+      <div><b>安卓apk</b></div>
+    </td>
+    <td align="center">
+      <img
+        src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/h5.png"
+        width="180"
+        height="180"
+      />
+      <div><b>H5网站</b></div>
+    </td>
+  </tr>
+</table>
 
 ## License
 
