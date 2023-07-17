@@ -15,6 +15,10 @@
 		</uni-section>
 		<app-gap></app-gap>
 	</template>
+	<template v-if="menuData && menuData.length ? false : true">
+		<app-gap gap="32px"></app-gap>
+		<app-empty></app-empty>
+	</template>
 </template>
 
 <script>
