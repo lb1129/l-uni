@@ -40,6 +40,11 @@
 				</view>
 			</uni-popup-dialog>
 		</uni-popup>
+		<!-- #ifdef APP-PLUS | MP-WEIXIN -->
+		<view class="login-weixin">
+			<uni-icons type="weixin" :color="$theme" :size="40" @click="weixinLoginHandler"></uni-icons>
+		</view>
+		<!-- #endif -->
 	</app-authenticate-layout>
 </template>
 
@@ -48,7 +53,8 @@
 		mapActions
 	} from 'vuex'
 	import {
-		loginServe
+		loginServe,
+		loginByWxServe
 	} from '@/serves/login.js'
 	import {
 		getMenuServe,
@@ -57,6 +63,7 @@
 	import {
 		tokenStorage
 	} from '@/storage/index.js'
+	import isAuthenticated from '@/auth/isAuthenticated.js'
 	export default {
 		data() {
 			return {
@@ -82,6 +89,30 @@
 			}
 		},
 		methods: {
+			weixinLoginHandler() {
+				// 微信小程序 微信登录
+				// NOTE app 微信开放平台申请appId 然后使用微信登录
+				if (process.env.NODE_ENV === 'development')
+					uni.login({
+						provider: 'weixin',
+						onlyAuthorize: true,
+						success: (event) => {
+							const {
+								code
+							} = event
+							//客户端成功获取授权临时票据（code）,向业务服务器发起登录请求
+							loginByWxServe({
+								code
+							}).then(res => {
+								this.loginSuccessAfterHandler(res.data)
+							})
+						}
+					})
+				else uni.showToast({
+					icon: 'none',
+					title: this.$t('noAppId')
+				})
+			},
 			navigato(url) {
 				uni.navigateTo({
 					url
@@ -104,26 +135,56 @@
 					this.login()
 				} catch (e) {}
 			},
-			async login() {
-				try {
-					const res = await loginServe(this.model)
-					tokenStorage.set(res.data)
-					getUserInfoServe().then(res => {
-						this.setUserInfo(res.data)
+			loginSuccessAfterHandler(token) {
+				tokenStorage.set(token)
+				getUserInfoServe().then(res => {
+					this.setUserInfo(res.data)
+				})
+				getMenuServe().then(res => {
+					this.setMenuData(res.data)
+				})
+				uni.switchTab({
+					url: '/pages/home/home'
+				}).then(() => {
+					uni.setNavigationBarColor({
+						frontColor: '#ffffff',
+						backgroundColor: this.$theme
 					})
-					getMenuServe().then(res => {
-						this.setMenuData(res.data)
-					})
-					uni.switchTab({
-						url: '/pages/home/home'
-					})
-				} catch (e) {}
+				})
+			},
+			login() {
+				loginServe(this.model).then(res => {
+					this.loginSuccessAfterHandler(res.data)
+				})
 			},
 			...mapActions(['setUserInfo', 'setMenuData'])
+		},
+		onLoad() {
+			// 已登录 跳转首页
+			isAuthenticated.value.then(() => {
+				uni.switchTab({
+					url: '/pages/home/home'
+				}).then(() => {
+					uni.setNavigationBarColor({
+						frontColor: '#ffffff',
+						backgroundColor: this.$theme
+					})
+				})
+			})
 		}
 	}
 </script>
 
-<style>
+<style lang="scss" scoped>
+	/* #ifdef APP-PLUS | MP-WEIXIN */
+	.login-weixin {
+		position: fixed;
+		bottom: 16px;
+		left: 0;
+		right: 0;
+		width: 100%;
+		text-align: center;
+	}
 
+	/* #endif */
 </style>
