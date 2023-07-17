@@ -31,11 +31,15 @@ uni.addInterceptor('request', {
 		} else {
 			// 401 跳转登录页
 			if (res.statusCode === 401) {
-				isAuthenticated.value = Promise.reject('isAuthenticated false')
-				tokenStorage.clear()
-				uni.reLaunch({
-					url: '/pages/login/login'
-				})
+				const pages = getCurrentPages()
+				const page = pages[pages.length - 1]
+				if (page.route !== 'pages/login/login') {
+					isAuthenticated.value = Promise.reject('isAuthenticated false')
+					tokenStorage.clear()
+					uni.reLaunch({
+						url: '/pages/login/login'
+					})
+				}
 			} else {
 				// 其他状态码 进行提示
 				uni.showToast({
