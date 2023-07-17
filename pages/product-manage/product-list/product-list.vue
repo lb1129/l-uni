@@ -7,7 +7,7 @@
 			<uni-swipe-action-item v-for="(item, index) in dataSource" :key="item.id" :right-options="options"
 				@click="actionItemClickHandler($event, item, index)">
 				<uni-list-chat clickable @click="itemClickHandler(item)" :avatar-circle="true" :title="item.name"
-					avatar="/static/image/logo.png" :note="item.brand" :time="`￥${item.price}`"></uni-list-chat>
+					:avatar="item.images[0]" :note="item.brand" :time="`￥${item.price}`"></uni-list-chat>
 			</uni-swipe-action-item>
 		</uni-swipe-action>
 	</uni-list>
@@ -22,7 +22,7 @@
 	import qs from 'query-string'
 	import {
 		operateAuthMixin
-	} from '@/interceptor/router/auth.js'
+	} from '@/auth/operateAuth.js'
 	export default {
 		// 操作权限
 		mixins: [operateAuthMixin],
