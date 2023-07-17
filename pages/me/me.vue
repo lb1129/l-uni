@@ -23,6 +23,9 @@
 	import {
 		logoutServe
 	} from '@/serves/login.js'
+	import {
+		mapActions
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -30,6 +33,7 @@
 			}
 		},
 		methods: {
+			...mapActions(['resetMenuData', 'resetUserInfo']),
 			logOutHandler() {
 				uni.showModal({
 					title: this.$t('tip'),
@@ -47,6 +51,8 @@
 							try {
 								await logoutServe()
 								tokenStorage.clear()
+								this.resetUserInfo()
+								this.resetMenuData()
 								uni.hideToast()
 								uni.reLaunch({
 									url: '/pages/login/login'
