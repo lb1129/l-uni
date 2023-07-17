@@ -1,6 +1,8 @@
 // post
 export const login_api = '/api/login'
 // post
+export const login_wx_api = '/api/loginByWx'
+// post
 export const logout_api = '/api/logout'
 // get
 export const menu_api = '/api/menu'
