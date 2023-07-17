@@ -32,7 +32,8 @@
             "delay" : 0
         },
         "modules" : {
-            "Camera" : {}
+            "Camera" : {},
+            "VideoPlayer" : {}
         },
         /* 模块配置 */
         "distribute" : {
