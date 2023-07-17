@@ -68,13 +68,11 @@ export function createApp() {
 						})
 					}
 					// #ifdef MP-WEIXIN
-					if (page.route !== 'pages/start/start') {
-						const arr = page.route.split('/')
-						const str = arr[arr.length - 1]
-						uni.setNavigationBarTitle({
-							title: this.$t(camelCase(str))
-						})
-					}
+					const arr = page.route.split('/')
+					const str = arr[arr.length - 1]
+					uni.setNavigationBarTitle({
+						title: this.$t(camelCase(str))
+					})
 					// #endif
 				}
 			})
