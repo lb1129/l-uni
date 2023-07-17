@@ -1,17 +1,11 @@
 import {
 	tokenStorage
 } from '@/storage/index.js'
-import {
-	authenticatePageUrls,
-	specialPageUrls
-} from '@/interceptor/router/pages.js'
-import {
-	pathFull
-} from '@/common/pathFull.js'
-import isAuthenticated from '@/interceptor/router/isAuthenticated.js'
+import isAuthenticated from '@/auth/isAuthenticated.js'
+import config from '@/config.json'
 
-const baseUrl = ''
-const timeout = 60000
+const baseUrl = config.baseUrl
+const timeout = config.timeout
 
 uni.addInterceptor('request', {
 	invoke(args) {
@@ -37,16 +31,11 @@ uni.addInterceptor('request', {
 		} else {
 			// 401 跳转登录页
 			if (res.statusCode === 401) {
-				const pages = getCurrentPages()
-				const page = pages[pages.length - 1]
-				// 所在页面无需登录 则不做处理 
-				if (![...authenticatePageUrls, ...specialPageUrls].some(url => pathFull(page.route))) {
-					isAuthenticated.value = Promise.reject()
-					tokenStorage.clear()
-					uni.reLaunch({
-						url: '/pages/login/login'
-					})
-				}
+				isAuthenticated.value = Promise.reject('isAuthenticated false')
+				tokenStorage.clear()
+				uni.reLaunch({
+					url: '/pages/login/login'
+				})
 			} else {
 				// 其他状态码 进行提示
 				uni.showToast({
