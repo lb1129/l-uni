@@ -1,11 +1,12 @@
 import {
 	createStore
 } from 'vuex'
+import config from '@/config.json'
 
 const store = createStore({
 	state() {
 		return {
-			theme: '#007aff',
+			theme: config.theme,
 			userInfo: {},
 			menuData: []
 		}
