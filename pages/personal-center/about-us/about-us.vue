@@ -2,7 +2,7 @@
 	<view class="about-us-text">
 		<text>关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容 关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容
 			关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容 关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容关于我们内容</text>
-		<uni-title type="h2" title="观看视频了解我们"></uni-title>
+		<uni-title type="h2" title="观看视频了解我们" v-if="showVideo"></uni-title>
 		<view v-if="showVideo">
 			<video class="about-us-video" id="video"
 				src="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/2minute-demo.mp4" @error="videoErrorCallback"
@@ -32,10 +32,7 @@
 		},
 		methods: {
 			videoErrorCallback(e) {
-				uni.showModal({
-					content: e.target.errMsg,
-					showCancel: false
-				})
+				this.showVideo = false
 			}
 		}
 	}
