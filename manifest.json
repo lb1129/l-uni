@@ -33,7 +33,9 @@
         },
         "modules" : {
             "Camera" : {},
-            "VideoPlayer" : {}
+            "VideoPlayer" : {},
+            "Share" : {},
+            "OAuth" : {}
         },
         /* 模块配置 */
         "distribute" : {
