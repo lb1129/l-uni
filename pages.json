@@ -1,15 +1,11 @@
 {
 	// BUG 暗黑主题与国际化同时使用时 语言切换时配置在此处的国际化将不起作用
-	"pages": [
-		// #ifndef H5
-		{
-			"path": "pages/start/start",
+	"pages": [{
+			"path": "pages/login/login",
 			"style": {
-				"navigationStyle": "custom"
+				"navigationBarTitleText": "%login%"
 			}
-		},
-		// #endif
-		{
+		}, {
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "%home%",
@@ -20,12 +16,6 @@
 			"path": "pages/me/me",
 			"style": {
 				"navigationBarTitleText": "%me%"
-			}
-		},
-		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "%login%"
 			}
 		}
 	],
@@ -86,19 +76,30 @@
 			}, {
 				"path": "product-detail/product-detail",
 				"style": {
-					"navigationBarTitleText": "%productDetail%"
+					"navigationBarTitleText": "%productDetail%",
+					// #ifdef APP-PLUS
+					"app-plus": {
+						"titleNView": {
+							"buttons": [{
+								"text": "\ue841",
+								"fontSrc": "/static/iconfont.ttf",
+								"fontSize": "20px"
+							}]
+						}
+					}
+					// #endif
 				}
 			}]
 		}
 	],
 	"preloadRule": {
-		"pages/home/home": {
-			"network": "all",
-			"packages": ["pages/product-manage"]
-		},
 		"pages/login/login": {
 			"network": "all",
 			"packages": ["pages/authenticate"]
+		},
+		"pages/home/home": {
+			"network": "all",
+			"packages": ["pages/product-manage"]
 		},
 		"pages/me/me": {
 			"network": "all",
@@ -106,9 +107,8 @@
 		}
 	},
 	"globalStyle": {
-		"navigationBarBackgroundColor": "#f5f5f5",
-		"navigationBarTextStyle": "white",
-		"maxWidth": 996
+		"navigationBarBackgroundColor": "#f7f7f7",
+		"navigationBarTextStyle": "white"
 	},
 	"tabBar": {
 		"color": "#d6d6d6",
