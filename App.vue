@@ -36,6 +36,11 @@
 				if (page && page.route !== 'pages/home/home')
 					uni.switchTab({
 						url: '/pages/home/home'
+					}).then(() => {
+						uni.setNavigationBarColor({
+							frontColor: '#ffffff',
+							backgroundColor: this.$theme
+						})
 					})
 				getUserInfoServe().then(res => {
 					this.setUserInfo(res.data)
