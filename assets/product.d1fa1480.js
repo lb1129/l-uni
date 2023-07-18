@@ -1,0 +1,1 @@
+import{aw as a,ar as s,ax as r,ay as t,az as d,aA as o}from"./index-f4a39db8.js";const e=t=>a({url:s.stringifyUrl({url:r,query:{id:t}})}),i=a=>t({url:r,method:"DELETE",data:a}),l=a=>d({url:o,method:"POST",data:a});export{e as a,i as d,l as g};
