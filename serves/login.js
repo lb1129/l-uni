@@ -1,4 +1,3 @@
-import isAuthenticated from '@/auth/isAuthenticated.js'
 import {
 	login_api,
 	login_wx_api,
@@ -12,60 +11,29 @@ import {
 	isLoginServeMock
 } from '@/mock/index.js'
 
-export const loginServe = (ops) => {
-	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-	const p = loginServeMock({
-		url: login_api,
-		data: ops,
-		method: 'POST'
-	})
-	isAuthenticated.value = new Promise((resolve, reject) => {
-		p.then(() => {
-			resolve('isAuthenticated true')
-		}).catch(() => {
-			reject('isAuthenticated false')
-		})
-	})
-	return p
-}
+// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+export const loginServe = (ops) => loginServeMock({
+	url: login_api,
+	data: ops,
+	method: 'POST'
+})
 
-export const loginByWxServe = (ops) => {
-	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-	const p = loginByWxServeMock({
-		url: login_wx_api,
-		data: ops,
-		method: 'POST'
-	})
-	isAuthenticated.value = new Promise((resolve, reject) => {
-		p.then(() => {
-			resolve('isAuthenticated true')
-		}).catch(() => {
-			reject('isAuthenticated false')
-		})
-	})
-	return p
-}
 
-export const logoutServe = () => {
-	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-	const p = logoutServeMock({
-		url: logout_api
-	})
-	isAuthenticated.value = new Promise((resolve, reject) => {
-		p.then(() => {
-			reject('isAuthenticated false')
-		}).catch(() => {
-			resolve('isAuthenticated true')
-		})
-	})
-	return p
-}
+// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+export const loginByWxServe = (ops) => loginByWxServeMock({
+	url: login_wx_api,
+	data: ops,
+	method: 'POST'
+})
 
-export const isLoginServe = () => {
-	// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-	const p = isLoginServeMock({
-		url: isLogin_api
-	})
-	isAuthenticated.value = p
-	return p
-}
+
+// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+export const logoutServe = () => logoutServeMock({
+	url: logout_api
+})
+
+
+// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
+export const isLoginServe = () => isLoginServeMock({
+	url: isLogin_api
+})

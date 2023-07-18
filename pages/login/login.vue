@@ -63,7 +63,6 @@
 	import {
 		tokenStorage
 	} from '@/storage/index.js'
-	import isAuthenticated from '@/auth/isAuthenticated.js'
 	export default {
 		data() {
 			return {
@@ -164,19 +163,6 @@
 				})
 			},
 			...mapActions(['setUserInfo', 'setMenuData'])
-		},
-		onLoad() {
-			// 已登录 跳转首页
-			isAuthenticated.value.then(() => {
-				uni.switchTab({
-					url: '/pages/home/home'
-				}).then(() => {
-					uni.setNavigationBarColor({
-						frontColor: '#ffffff',
-						backgroundColor: this.$theme
-					})
-				})
-			})
 		}
 	}
 </script>
