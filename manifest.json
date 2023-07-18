@@ -13,6 +13,9 @@
         },
         "router" : {
             "base" : "/l-uni/"
+        },
+        "unipush" : {
+            "enable" : true
         }
     },
     "app-plus" : {
@@ -35,7 +38,8 @@
             "Camera" : {},
             "VideoPlayer" : {},
             "Share" : {},
-            "OAuth" : {}
+            "OAuth" : {},
+            "Push" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -67,7 +71,22 @@
             "sdkConfigs" : {
                 "ad" : {},
                 "share" : {},
-                "oauth" : {}
+                "oauth" : {},
+                "push" : {
+                    "unipush" : {
+                        "version" : "2",
+                        "offline" : true,
+                        "icons" : {
+                            "small" : {
+                                "ldpi" : "unpackage/res/icons/18x18.png",
+                                "mdpi" : "unpackage/res/icons/24x24.png",
+                                "hdpi" : "unpackage/res/icons/36x36.png",
+                                "xhdpi" : "unpackage/res/icons/48x48.png",
+                                "xxhdpi" : "unpackage/res/icons/72x72.png"
+                            }
+                        }
+                    }
+                }
             },
             "icons" : {
                 "android" : {
@@ -113,7 +132,10 @@
             "minified" : true
         },
         "usingComponents" : true,
-        "lazyCodeLoading" : "requiredComponents"
+        "lazyCodeLoading" : "requiredComponents",
+        "unipush" : {
+            "enable" : true
+        }
     },
     "vueVersion" : "3",
     "fallbackLocale" : "zh-Hans",
