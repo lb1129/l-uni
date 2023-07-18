@@ -2,23 +2,15 @@ import App from './App.vue'
 import {
 	createSSRApp
 } from 'vue'
-import {
-	createI18n
-} from 'vue-i18n'
 import store from '@/store/index.js'
-import messages from './locale/index.js'
+import i18n from '@/locale/i18n.js'
+
 // #ifdef MP-WEIXIN
 import {
 	camelCase
 }
 from 'lodash-es'
 // #endif
-
-const i18nConfig = {
-	locale: uni.getLocale(),
-	messages
-}
-const i18n = createI18n(i18nConfig)
 
 export function createApp() {
 	const app = createSSRApp(App)
