@@ -52,7 +52,7 @@ const mock = (fn, needAuth) => (req) => new Promise((resolve, reject) => {
 		if (msg === '未登录') {
 			const pages = getCurrentPages()
 			const page = pages[pages.length - 1]
-			if (page.route !== 'pages/login/login')
+			if (page && page.route !== 'pages/login/login')
 				uni.reLaunch({
 					url: '/pages/login/login'
 				})
