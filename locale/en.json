@@ -57,5 +57,7 @@
 	"shareSuccess": "Share success",
 	"shareFail": "Share fail",
 	"noAppId": "No appId",
-	"noData": "No data"
+	"noData": "No data",
+	"haveNewVersion": "There is a new version released, do you want to update it?",
+	"updateFailed": "Update failed"
 }
