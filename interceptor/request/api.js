@@ -15,3 +15,6 @@ export const isLogin_api = '/api/isLogin'
 export const product_api = '/api/product'
 // post
 export const products_api = '/api/getProducts'
+
+// get
+export const wgtUpdate_api = '/api/wgtUpdate'
