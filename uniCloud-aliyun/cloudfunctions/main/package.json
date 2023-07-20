@@ -1,0 +1,8 @@
+{
+  "name": "main",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "response-common": "file:../common/response-common"
+  },
+  "extensions": {}
+}
