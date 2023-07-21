@@ -1,12 +1,20 @@
 'use strict';
-const response = require('response-common')
+const {
+	success,
+	fail
+} = require('response-common')
 const wgtInfo = require('./wgtInfo.json')
-exports.main = async (event, context) => {
+/**
+ * wgt更新
+ * @param {object} ops {version: string}
+ * @returns {object} {errCode: number, errMsg: string, data: any}
+ */
+exports.main = async (event = {}, context) => {
 	const {
 		version
 	} = event
 	if (wgtInfo.version !== version) {
-		return response(wgtInfo.url)
+		return success(wgtInfo.url)
 	}
-	return response(null, 1, '已是最新版本')
+	return fail('已是最新版本')
 }
