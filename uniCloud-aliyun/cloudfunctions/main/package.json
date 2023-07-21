@@ -1,7 +1,7 @@
 {
   "name": "main",
   "dependencies": {
-    "crypto-js": "^4.1.1",
+    "crypto-common": "file:../common/crypto-common",
     "response-common": "file:../common/response-common"
   },
   "extensions": {}

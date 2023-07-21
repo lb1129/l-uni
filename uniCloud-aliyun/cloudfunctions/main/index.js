@@ -1,9 +1,14 @@
 'use strict';
-const response = require('response-common')
-const Base64 = require("crypto-js/enc-base64")
-const Utf8 = require("crypto-js/enc-utf8")
+const {
+	success,
+	fail
+} = require('response-common')
+const crypto = require("crypto-common")
+const exclude = require('./exclude.js')
+const upperCaseExclude = exclude.map(arr => arr.map(item => item.toUpperCase()))
+const excludeMap = new Map(upperCaseExclude)
 
-exports.main = async (event, context) => {
+exports.main = async (event = {}, context) => {
 	// url化的出口
 	let {
 		path,
@@ -17,10 +22,36 @@ exports.main = async (event, context) => {
 	const pathArr = path.split('/').filter(Boolean)
 	const len = pathArr.length
 
+	// 要排除的云对象方法或云函数
+	if (len === 1) {
+		if (excludeMap.has(pathArr[0].toUpperCase())) {
+			return {
+				"mpserverlessComposedResponse": true,
+				"statusCode": 404,
+				"headers": {
+					'content-type': 'application/json'
+				},
+				"body": JSON.stringify(fail('404'))
+			}
+		}
+	} else if (len === 2) {
+		const excludeObjFn = excludeMap.get(pathArr[0].toUpperCase())
+		if (excludeObjFn && excludeObjFn === pathArr[1].toUpperCase()) {
+			return {
+				"mpserverlessComposedResponse": true,
+				"statusCode": 404,
+				"headers": {
+					'content-type': 'application/json'
+				},
+				"body": JSON.stringify(fail('404'))
+			}
+		}
+	}
+
 	// 组合 入参
 	// base64编码 解码
 	if (isBase64Encoded) {
-		body = Base64.parse(Utf8.parse(body)).toString(Utf8)
+		body = crypto.enc.Base64.parse(crypto.enc.Utf8.parse(body)).toString(crypto.enc.Utf8)
 	}
 	// data默认值
 	let data = {}
@@ -51,7 +82,7 @@ exports.main = async (event, context) => {
 						"headers": {
 							'content-type': 'application/json'
 						},
-						"body": JSON.stringify(response())
+						"body": JSON.stringify(success())
 					}
 				}
 				if (fnRes.result.errCode === 0) {
@@ -86,7 +117,7 @@ exports.main = async (event, context) => {
 					"headers": {
 						'content-type': 'application/json'
 					},
-					"body": JSON.stringify(response(null, 1, '404'))
+					"body": JSON.stringify(fail('404'))
 				}
 			}
 			if (e.message) {
@@ -97,7 +128,7 @@ exports.main = async (event, context) => {
 						"headers": {
 							'content-type': 'application/json'
 						},
-						"body": JSON.stringify(response(null, 1, '404'))
+						"body": JSON.stringify(fail('404'))
 					}
 				}
 			}
@@ -117,11 +148,12 @@ exports.main = async (event, context) => {
 				"headers": {
 					'content-type': 'application/json'
 				},
-				"body": JSON.stringify(ObjFnRes ? ObjFnRes : response())
+				"body": JSON.stringify(ObjFnRes ? ObjFnRes : success())
 			}
 		} catch (e) {
 			if (e.message) {
-				if (e.message.indexOf('not found') !== -1 || e.message.indexOf(
+				if (e.message.indexOf('not_found') !== -1 || e.message.indexOf('not found') !== -1 || e.message
+					.indexOf(
 						'private method') !== -1)
 					return {
 						"mpserverlessComposedResponse": true,
@@ -129,7 +161,7 @@ exports.main = async (event, context) => {
 						"headers": {
 							'content-type': 'application/json'
 						},
-						"body": JSON.stringify(response(null, 1, '404'))
+						"body": JSON.stringify(fail('404'))
 					}
 			}
 			if (e.detail) {
@@ -155,7 +187,7 @@ exports.main = async (event, context) => {
 			"headers": {
 				'content-type': 'application/json'
 			},
-			"body": JSON.stringify(response(null, 1, '404'))
+			"body": JSON.stringify(fail('404'))
 		}
 	}
 
