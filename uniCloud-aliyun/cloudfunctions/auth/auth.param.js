@@ -2,25 +2,25 @@
 // 配置教程参考：https://uniapp.dcloud.net.cn/uniCloud/rundebug.html#run-obj-param
 
 // login({
-// 	username: 'admin',
-// 	password: 'a123456'
+// 	username: 15986407941,
+// 	password: '63e43c5a835bf7e735feb2c094e7f532'
 // })
 
-// getUserById({
-// 	id: 'da51bd8c5e37ac14099ea43a2505a1a5'
-// })
+getUserById({
+	id: '64b940668b0da41af0d4a472'
+})
 
 // register({
 // 	username: 'viho',
-// 	password: 'a123456',
-// 	confirmPassword: 'a123456',
+// 	password: '46c47866037500f713a0c06de43e78b4',
+// 	confirmPassword: '46c47866037500f713a0c06de43e78b4',
 // 	phone: 13428574246,
-// 	code: 1234
+// 	code: 34952
 // })
 
-findPassword({
-	password: 'a12345',
-	confirmPassword: 'a12345',
-	phone: 13428574246,
-	code: 1234
-})
+// findPassword({
+// 	password: 'dc5d7acac79922fe84c8d08f4e2bdb10',
+// 	confirmPassword: 'dc5d7acac79922fe84c8d08f4e2bdb10',
+// 	phone: 13428574246,
+// 	code: 91321
+// })

@@ -4,9 +4,21 @@ const {
 	success,
 	fail
 } = require('response-common')
+const {
+	validatePhone,
+	validatePassword
+} = require('validate-common')
+const {
+	sign
+} = require('jwt-common')
+// const uniID = require('uni-id-common')
 module.exports = {
 	_before: function() {
-
+		// FIXME uni-id 初始化报错
+		// const clientInfo = this.getClientInfo()
+		// this.uniID = uniID.createInstance({ // 创建uni-id实例，其上方法同uniID
+		// 	clientInfo
+		// })
 	},
 	/**
 	 * 登录
@@ -22,15 +34,17 @@ module.exports = {
 			const db = uniCloud.database()
 			const dbCmd = db.command
 			const res = await db.collection('user').where(dbCmd.or({
-				username,
-				password
+				username: dbCmd.eq(username),
+				password: dbCmd.eq(password)
 			}, {
-				phone: username,
-				password
+				phone: dbCmd.eq(username),
+				password: dbCmd.eq(password)
 			})).get()
 			if (res.affectedDocs) {
-				// TODO 生成token返回
-				return success(res.data[0]._id)
+				const jwt = sign({
+					userId: res.data[0]._id
+				})
+				return success(jwt)
 			}
 			return fail('用户名或密码错误')
 		} catch (e) {
@@ -53,20 +67,44 @@ module.exports = {
 		if (!username) {
 			return fail('缺失用户名')
 		}
-		// TODO 密码格式正确性验证
 		if (!password) {
 			return fail('缺失密码')
+		}
+		const aes = uniCloud.importObject('aes')
+		try {
+			const decryptRes = await aes.decrypt({
+				data: password
+			})
+			if (!decryptRes.data) {
+				return fail('密码未正确加密')
+			}
+			if (decryptRes.data.length < 7 || decryptRes.data.length > 10) {
+				return fail('密码长度应控制在7-10之间')
+			}
+			if (!validatePassword(decryptRes.data)) {
+				return fail('密码应为数字，英文大小写的组合')
+			}
+		} catch (e) {
+			return fail('密码未正确加密')
 		}
 		if (password !== confirmPassword) {
 			return fail('两次密码输入不一致')
 		}
-		// TODO 手机号格式正确性验证
 		if (!phone) {
 			return fail('缺失手机号')
 		}
-		// TODO 验证码正确性验证
+		if (!validatePhone(phone)) {
+			return fail('手机号格式不正确')
+		}
 		if (!code) {
 			return fail('缺失验证码')
+		}
+		const hadCode = await uniCloud.redis().get(phone)
+		if (!hadCode) {
+			return fail('请先获取验证码')
+		}
+		if (hadCode !== String(code)) {
+			return fail('验证码不匹配')
 		}
 		try {
 			const db = uniCloud.database()
@@ -105,20 +143,44 @@ module.exports = {
 			phone,
 			code
 		} = ops
-		// TODO 密码格式正确性验证
 		if (!password) {
 			return fail('缺失密码')
+		}
+		const aes = uniCloud.importObject('aes')
+		try {
+			const decryptRes = await aes.decrypt({
+				data: password
+			})
+			if (!decryptRes.data) {
+				return fail('密码未正确加密')
+			}
+			if (decryptRes.data.length < 7 || decryptRes.data.length > 10) {
+				return fail('密码长度应控制在7-10之间')
+			}
+			if (!validatePassword(decryptRes.data)) {
+				return fail('密码应为数字，英文大小写的组合')
+			}
+		} catch (e) {
+			return fail('密码未正确加密')
 		}
 		if (password !== confirmPassword) {
 			return fail('两次密码输入不一致')
 		}
-		// TODO 手机号格式正确性验证
 		if (!phone) {
 			return fail('缺失手机号')
 		}
-		// TODO 验证码正确性验证
+		if (!validatePhone(phone)) {
+			return fail('手机号格式不正确')
+		}
 		if (!code) {
 			return fail('缺失验证码')
+		}
+		const hadCode = await uniCloud.redis().get(phone)
+		if (!hadCode) {
+			return fail('请先获取验证码')
+		}
+		if (hadCode !== String(code)) {
+			return fail('验证码不匹配')
 		}
 		try {
 			const db = uniCloud.database()
