@@ -6,9 +6,9 @@
 	"user": { // 集合（表名）
 		"data": [ // 数据
 			{
-				"_id": "da51bd8c5e37ac14099ea43a2505a1a5",
+				"_id": "64b940668b0da41af0d4a472",
 				"username": "admin",
-				"password": "a123456",
+				"password": "63e43c5a835bf7e735feb2c094e7f532",
 				"phone": 15986407941
 			}
 		],
