@@ -17,4 +17,8 @@ db.collection('user').where({
 
 db.collection('user').doc("da51bd8c5e37ac14099ea43a2505a1a5").remove()
 
+db.collection('user').where({
+  _id: db.command.exists(true)
+}).remove()
+
 db.collection('user').where({username: 'viho'}).remove()
