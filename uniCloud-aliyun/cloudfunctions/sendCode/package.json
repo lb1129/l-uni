@@ -1,7 +1,10 @@
 {
   "name": "sendCode",
   "dependencies": {
-    "response-common": "file:../common/response-common"
+    "response-common": "file:../common/response-common",
+    "validate-common": "file:../common/validate-common"
   },
-  "extensions": {}
+  "extensions": {
+    "uni-cloud-redis": {}
+  }
 }
