@@ -1,7 +1,8 @@
 module.exports = [
 	["auth", "isLogin"],
 	["auth", "logout"],
-	["auth", "getUserInfo"],
+	["user", "getUserInfo"],
+	["user", "editUserInfo"],
 	['push'],
 	['menu', 'getMenu'],
 	['product', 'getProductById'],
