@@ -1,7 +1,11 @@
 {
-  "name": "main",
-  "dependencies": {
-    "response-common": "file:../common/response-common"
-  },
-  "extensions": {}
+	"name": "main",
+	"dependencies": {
+		"response-common": "file:../common/response-common",
+		"jwt-common": "file:../common/jwt-common"
+	},
+	"extensions": {},
+	"cloudfunction-config": {
+		"runtime": "Nodejs12"
+	}
 }

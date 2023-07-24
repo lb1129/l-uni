@@ -3,9 +3,19 @@ const {
 	success,
 	fail
 } = require('response-common')
+const {
+	verify
+} = require('jwt-common')
 const exclude = require('./exclude.js')
-const upperCaseExclude = exclude.map(arr => arr.map(item => item.toUpperCase()))
-const excludeMap = new Map(upperCaseExclude)
+const authorize = require('./authorize.js')
+let upperCaseExclude = {}
+exclude.forEach(arr => {
+	upperCaseExclude[arr.map(item => item.toUpperCase()).join()] = true
+})
+let upperCaseAuthorize = {}
+authorize.forEach(arr => {
+	upperCaseAuthorize[arr.map(item => item.toUpperCase()).join()] = true
+})
 
 exports.main = async (event = {}, context) => {
 	// url化的出口
@@ -22,8 +32,8 @@ exports.main = async (event = {}, context) => {
 	const len = pathArr.length
 
 	// 要排除的云对象方法或云函数
-	if (len === 1) {
-		if (excludeMap.has(pathArr[0].toUpperCase())) {
+	if (len === 1 || len === 2) {
+		if (upperCaseExclude[pathArr.map(path => path.toUpperCase()).join()]) {
 			return {
 				"mpserverlessComposedResponse": true,
 				"statusCode": 404,
@@ -33,17 +43,34 @@ exports.main = async (event = {}, context) => {
 				"body": JSON.stringify(fail('404'))
 			}
 		}
-	} else if (len === 2) {
-		const excludeObjFn = excludeMap.get(pathArr[0].toUpperCase())
-		if (excludeObjFn && excludeObjFn === pathArr[1].toUpperCase()) {
-			return {
+	}
+
+	// 校验token的云对象方法或云函数
+	let authorize = {}
+	if (len === 1 || len === 2) {
+		if (upperCaseAuthorize[pathArr.map(path => path.toUpperCase()).join()]) {
+			const authorization = headers.authorization
+			if (!authorization) return {
 				"mpserverlessComposedResponse": true,
-				"statusCode": 404,
+				"statusCode": 401,
 				"headers": {
 					'content-type': 'application/json'
 				},
-				"body": JSON.stringify(fail('404'))
+				"body": JSON.stringify(fail('未登录'))
 			}
+			const token = authorization.replace(/^Bearer\s+/, "")
+			const res = verify(token)
+			if (!res) {
+				return {
+					"mpserverlessComposedResponse": true,
+					"statusCode": 401,
+					"headers": {
+						'content-type': 'application/json'
+					},
+					"body": JSON.stringify(fail('未登录'))
+				}
+			}
+			authorize.userId = res.userId
 		}
 	}
 
@@ -62,7 +89,8 @@ exports.main = async (event = {}, context) => {
 		// query body 入参合并
 		data = {
 			...queryStringParameters,
-			...data
+			...data,
+			...authorize
 		}
 	} catch (e) {}
 
