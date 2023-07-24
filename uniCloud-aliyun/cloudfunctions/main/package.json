@@ -1,11 +1,13 @@
 {
-	"name": "main",
-	"dependencies": {
-		"response-common": "file:../common/response-common",
-		"jwt-common": "file:../common/jwt-common"
-	},
-	"extensions": {},
-	"cloudfunction-config": {
-		"runtime": "Nodejs12"
-	}
+  "name": "main",
+  "dependencies": {
+    "jwt-common": "file:../common/jwt-common",
+    "response-common": "file:../common/response-common"
+  },
+  "extensions": {
+    "uni-cloud-redis": {}
+  },
+  "cloudfunction-config": {
+    "runtime": "Nodejs12"
+  }
 }

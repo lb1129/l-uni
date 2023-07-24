@@ -42,9 +42,12 @@ module.exports = {
 				password: dbCmd.eq(password)
 			})).get()
 			if (res.affectedDocs) {
+				const userId = res.data[0]._id
 				const jwt = sign({
-					userId: res.data[0]._id
+					userId
 				})
+				// token session 写入
+				await uniCloud.redis().set(userId, jwt, 'EX', 24 * 60 * 60)
 				return success(jwt)
 			}
 			return fail('用户名或密码错误')
@@ -59,6 +62,24 @@ module.exports = {
 	 */
 	async isLogin(ops = {}) {
 		return success(true)
+	},
+	/**
+	 * 退出登录
+	 * @param {object} ops {}
+	 * @returns {object} {errCode: number, errMsg: string, data: any}
+	 */
+	async loginOut(ops = {}) {
+		// 将 token 失效
+		const {
+			userId
+		} = ops
+		try {
+			// token session 清除
+			await uniCloud.redis().del(userId)
+			return success(true)
+		} catch (e) {
+			return fail('退出登录失败，请重试')
+		}
 	},
 	/**
 	 * 注册
@@ -183,20 +204,18 @@ module.exports = {
 		}
 	},
 	/**
-	 * 通过用户id获取用户信息
-	 * @param {object} ops {id: string}
+	 * 获取当前登录用户信息
+	 * @param {object} ops {}
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
 	 */
-	async getUserById(ops = {}) {
+	async getUserInfo(ops = {}) {
 		const {
-			id
+			userId
 		} = ops
-
-		if (isNoValue(id)) return fail('缺失id')
 
 		try {
 			const db = uniCloud.database()
-			const res = await db.collection('user').doc(id).field({
+			const res = await db.collection('user').doc(userId).field({
 				password: false
 			}).get()
 			if (res.affectedDocs) {

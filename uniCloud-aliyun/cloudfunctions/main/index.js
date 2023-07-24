@@ -70,6 +70,18 @@ exports.main = async (event = {}, context) => {
 					"body": JSON.stringify(fail('未登录'))
 				}
 			}
+			// token session 校验
+			const currentToken = await uniCloud.redis().get(res.userId)
+			if (!currentToken || currentToken !== token) {
+				return {
+					"mpserverlessComposedResponse": true,
+					"statusCode": 401,
+					"headers": {
+						'content-type': 'application/json'
+					},
+					"body": JSON.stringify(fail('未登录'))
+				}
+			}
 			authorize.userId = res.userId
 		}
 	}
