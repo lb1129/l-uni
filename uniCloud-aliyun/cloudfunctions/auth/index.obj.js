@@ -68,7 +68,7 @@ module.exports = {
 	 * @param {object} ops {}
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
 	 */
-	async loginOut(ops = {}) {
+	async logout(ops = {}) {
 		// 将 token 失效
 		const {
 			userId
