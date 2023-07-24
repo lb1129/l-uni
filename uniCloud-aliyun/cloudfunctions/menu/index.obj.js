@@ -12,14 +12,17 @@ module.exports = {
 	 * 获取用户菜单
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
 	 */
-	async getMenu() {
+	async getMenu(ops = {}) {
+		const {
+			userId
+		} = ops
 		try {
 			const db = uniCloud.database()
 			const collection = db.collection('menu')
 			const res = await collection.field({
 				user_id: false
 			}).where({
-				user_id: '64b940668b0da41af0d4a472'
+				user_id: userId
 			}).get()
 			const menu = res.data
 			// 构建树形结构
