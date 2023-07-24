@@ -51,7 +51,8 @@ module.exports = {
 			style,
 			enable,
 			inventory,
-			describe
+			describe,
+			userId
 		} = ops
 
 		// 新增
@@ -67,7 +68,8 @@ module.exports = {
 			const collection = db.collection('product')
 			// 编辑
 			if (id) {
-				const updateRes = await collection.doc(id).update({
+				await collection.doc(id).update({
+					user_id: userId,
 					name,
 					brand,
 					category,
@@ -81,6 +83,7 @@ module.exports = {
 				return success(id)
 			} else { // 新增
 				const addRes = await collection.add({
+					user_id: userId,
 					name,
 					brand,
 					category,
