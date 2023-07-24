@@ -3,7 +3,6 @@ const {
 	success,
 	fail
 } = require('response-common')
-const crypto = require("crypto-common")
 const exclude = require('./exclude.js')
 const upperCaseExclude = exclude.map(arr => arr.map(item => item.toUpperCase()))
 const excludeMap = new Map(upperCaseExclude)
@@ -51,7 +50,7 @@ exports.main = async (event = {}, context) => {
 	// 组合 入参
 	// base64编码 解码
 	if (isBase64Encoded) {
-		body = crypto.enc.Base64.parse(crypto.enc.Utf8.parse(body)).toString(crypto.enc.Utf8)
+		body = Buffer.from(body, 'base64').toString('utf8')
 	}
 	// data默认值
 	let data = {}
