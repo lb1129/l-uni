@@ -142,7 +142,9 @@ module.exports = {
 			const addRes = await collection.add({
 				username,
 				password,
-				phone
+				phone,
+				// 默认头像
+				avatar: 'https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/user.png'
 			})
 			return success(addRes.id)
 		} catch (e) {
