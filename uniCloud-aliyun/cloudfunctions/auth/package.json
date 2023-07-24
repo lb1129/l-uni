@@ -2,9 +2,9 @@
   "name": "auth",
   "dependencies": {
     "jwt-common": "file:../common/jwt-common",
+    "lodash-common": "file:../common/lodash-common",
     "response-common": "file:../common/response-common",
-    "validate-common": "file:../common/validate-common",
-    "lodash-common": "file:../common/lodash-common"
+    "validate-common": "file:../common/validate-common"
   },
   "extensions": {
     "uni-cloud-redis": {}

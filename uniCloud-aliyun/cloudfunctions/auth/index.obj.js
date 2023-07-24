@@ -31,15 +31,32 @@ module.exports = {
 		if (isNoValue(username)) return fail('缺失用户名')
 		if (isNoValue(password)) return fail('缺失密码')
 
+		let rsaDecryptRes
+		try {
+			// rsa解密
+			const rsaObj = uniCloud.importObject('rsa')
+			rsaDecryptRes = await rsaObj.decrypt({
+				data: password
+			})
+		} catch (e) {
+			return fail('密码未正确加密')
+		}
+
+		// aes加密
+		const aesObj = uniCloud.importObject('aes')
+		const aesEncryptRes = await aesObj.encrypt({
+			data: rsaDecryptRes.data
+		})
+
 		try {
 			const db = uniCloud.database()
 			const dbCmd = db.command
 			const res = await db.collection('user').where(dbCmd.or({
 				username: dbCmd.eq(username),
-				password: dbCmd.eq(password)
+				password: dbCmd.eq(aesEncryptRes.data)
 			}, {
 				phone: dbCmd.eq(username),
-				password: dbCmd.eq(password)
+				password: dbCmd.eq(aesEncryptRes.data)
 			})).get()
 			if (res.affectedDocs) {
 				const userId = res.data[0]._id
@@ -83,38 +100,38 @@ module.exports = {
 	},
 	/**
 	 * 注册
-	 * @param {object} ops {username: string, password: string, confirmPassword: string, phone: number, code: number}
+	 * @param {object} ops {username: string, password: string, phone: number, code: number}
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
 	 */
 	async register(ops = {}) {
 		const {
 			username,
 			password,
-			confirmPassword,
 			phone,
 			code
 		} = ops
 
 		if (isNoValue(username)) return fail('缺失用户名')
 		if (isNoValue(password)) return fail('缺失密码')
-		if (password !== confirmPassword) return fail('两次密码输入不一致')
 		if (isNoValue(phone)) return fail('缺失手机号')
 		if (!lodash.isNumber(phone)) return fail('手机号字段类型不正确')
 		if (!isPhone(phone)) return fail('手机号格式不正确')
 		if (isNoValue(code)) return fail('缺失验证码')
 
+		let rsaDecryptRes
 		try {
-			const aes = uniCloud.importObject('aes')
-			const decryptRes = await aes.decrypt({
+			// rsa解密
+			const rsaObj = uniCloud.importObject('rsa')
+			rsaDecryptRes = await rsaObj.decrypt({
 				data: password
 			})
-			if (!decryptRes.data) {
+			if (!rsaDecryptRes.data) {
 				return fail('密码未正确加密')
 			}
-			if (decryptRes.data.length < 7 || decryptRes.data.length > 10) {
+			if (rsaDecryptRes.data.length < 7 || rsaDecryptRes.data.length > 10) {
 				return fail('密码长度应控制在7-10之间')
 			}
-			if (!isPassword(decryptRes.data)) {
+			if (!isPassword(rsaDecryptRes.data)) {
 				return fail('密码应为数字，英文大小写的组合')
 			}
 		} catch (e) {
@@ -140,9 +157,14 @@ module.exports = {
 			if (hadPhoneRes.affectedDocs) {
 				return fail('手机号重复')
 			}
+			// aes加密
+			const aesObj = uniCloud.importObject('aes')
+			const aesEncryptRes = await aesObj.encrypt({
+				data: rsaDecryptRes.data
+			})
 			const addRes = await collection.add({
 				username,
-				password,
+				password: aesEncryptRes.data,
 				phone,
 				// 默认头像
 				avatar: 'https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/user.png'
@@ -154,36 +176,36 @@ module.exports = {
 	},
 	/**
 	 * 找回密码
-	 * @param {object} ops {password: string, confirmPassword: string, phone: number, code: number}
+	 * @param {object} ops {password: string, phone: number, code: number}
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
 	 */
 	async findPassword(ops = {}) {
 		const {
 			password,
-			confirmPassword,
 			phone,
 			code
 		} = ops
 
 		if (isNoValue(password)) return fail('缺失密码')
-		if (password !== confirmPassword) return fail('两次密码输入不一致')
 		if (isNoValue(phone)) return fail('缺失手机号')
 		if (!lodash.isNumber(phone)) return fail('手机号字段类型不正确')
 		if (!isPhone(phone)) return fail('手机号格式不正确')
 		if (isNoValue(code)) return fail('缺失验证码')
 
+		let rsaDecryptRes
 		try {
-			const aes = uniCloud.importObject('aes')
-			const decryptRes = await aes.decrypt({
+			// rsa解密
+			const rsaObj = uniCloud.importObject('rsa')
+			rsaDecryptRes = await rsaObj.decrypt({
 				data: password
 			})
-			if (!decryptRes.data) {
+			if (!rsaDecryptRes.data) {
 				return fail('密码未正确加密')
 			}
-			if (decryptRes.data.length < 7 || decryptRes.data.length > 10) {
+			if (rsaDecryptRes.data.length < 7 || rsaDecryptRes.data.length > 10) {
 				return fail('密码长度应控制在7-10之间')
 			}
-			if (!isPassword(decryptRes.data)) {
+			if (!isPassword(rsaDecryptRes.data)) {
 				return fail('密码应为数字，英文大小写的组合')
 			}
 		} catch (e) {
@@ -197,10 +219,15 @@ module.exports = {
 
 			const db = uniCloud.database()
 			const collection = db.collection('user')
+			// aes加密
+			const aesObj = uniCloud.importObject('aes')
+			const aesEncryptRes = await aesObj.encrypt({
+				data: rsaDecryptRes.data
+			})
 			const res = await collection.where({
 				phone
 			}).update({
-				password
+				password: aesEncryptRes.data
 			})
 			return success()
 		} catch (e) {
