@@ -4,9 +4,9 @@ const path = require('path')
 const jwt = require('jsonwebtoken')
 const privateKey = fs.readFileSync(path.resolve(__dirname, './pri.key'))
 module.exports = {
-	sign(payload) {
+	sign(payload, expiresIn = '24h') {
 		return jwt.sign(payload, privateKey, {
-			expiresIn: '24h'
+			expiresIn
 		})
 	},
 	verify(token) {
