@@ -7,5 +7,8 @@
   },
   "extensions": {
     "uni-cloud-redis": {}
+  },
+  "cloudfunction-config": {
+  	"runtime": "Nodejs12"
   }
 }
