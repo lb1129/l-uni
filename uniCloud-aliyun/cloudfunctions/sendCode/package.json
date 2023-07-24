@@ -5,6 +5,7 @@
     "validate-common": "file:../common/validate-common"
   },
   "extensions": {
-    "uni-cloud-redis": {}
+    "uni-cloud-redis": {},
+    "uni-cloud-sms": {}
   }
 }
