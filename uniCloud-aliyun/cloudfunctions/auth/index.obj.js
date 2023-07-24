@@ -202,28 +202,5 @@ module.exports = {
 		} catch (e) {
 			return fail('找回密码失败，请重试')
 		}
-	},
-	/**
-	 * 获取当前登录用户信息
-	 * @param {object} ops {}
-	 * @returns {object} {errCode: number, errMsg: string, data: any}
-	 */
-	async getUserInfo(ops = {}) {
-		const {
-			userId
-		} = ops
-
-		try {
-			const db = uniCloud.database()
-			const res = await db.collection('user').doc(userId).field({
-				password: false
-			}).get()
-			if (res.affectedDocs) {
-				return success(res.data[0])
-			}
-			return fail('用户不存在')
-		} catch (e) {
-			return fail('获取用户失败，请重试')
-		}
 	}
 }
