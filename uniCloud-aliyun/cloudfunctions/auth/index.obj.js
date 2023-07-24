@@ -53,6 +53,14 @@ module.exports = {
 		}
 	},
 	/**
+	 * 是否已登录
+	 * @param {object} ops {}
+	 * @returns {object} {errCode: number, errMsg: string, data: any}
+	 */
+	async isLogin(ops = {}) {
+		return success(true)
+	},
+	/**
 	 * 注册
 	 * @param {object} ops {username: string, password: string, confirmPassword: string, phone: number, code: number}
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
