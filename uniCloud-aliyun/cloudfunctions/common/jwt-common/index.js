@@ -12,10 +12,9 @@ module.exports = {
 	verify(token) {
 		try {
 			const res = jwt.verify(token, privateKey)
-			console.log(res)
-			return true
+			return res
 		} catch (err) {
-			return false
+			return null
 		}
 	}
 }
