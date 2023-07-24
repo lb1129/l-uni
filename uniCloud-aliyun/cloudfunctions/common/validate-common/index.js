@@ -3,7 +3,7 @@ module.exports = {
 		return /^1[3456789]\d{9}$/.test(phone)
 	},
 	isPassword(password) {
-		return /^[a-zA-Z0-9]+$/.test(password)
+		return /^[a-zA-Z0-9]{7,10}$/.test(password)
 	},
 	isNoValue(value) {
 		if (value === null) return true

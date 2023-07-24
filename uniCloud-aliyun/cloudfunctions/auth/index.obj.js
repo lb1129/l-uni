@@ -128,11 +128,8 @@ module.exports = {
 			if (!rsaDecryptRes.data) {
 				return fail('密码未正确加密')
 			}
-			if (rsaDecryptRes.data.length < 7 || rsaDecryptRes.data.length > 10) {
-				return fail('密码长度应控制在7-10之间')
-			}
 			if (!isPassword(rsaDecryptRes.data)) {
-				return fail('密码应为数字，英文大小写的组合')
+				return fail('密码应为7-10个字符，由数字，英文大小写组成')
 			}
 		} catch (e) {
 			return fail('密码未正确加密')
@@ -202,11 +199,8 @@ module.exports = {
 			if (!rsaDecryptRes.data) {
 				return fail('密码未正确加密')
 			}
-			if (rsaDecryptRes.data.length < 7 || rsaDecryptRes.data.length > 10) {
-				return fail('密码长度应控制在7-10之间')
-			}
 			if (!isPassword(rsaDecryptRes.data)) {
-				return fail('密码应为数字，英文大小写的组合')
+				return fail('密码应为7-10个字符，由数字，英文大小写组成')
 			}
 		} catch (e) {
 			return fail('密码未正确加密')
