@@ -12,7 +12,7 @@ const {
 const {
 	sign
 } = require('jwt-common')
-
+const lodash = require('lodash-common')
 module.exports = {
 	_before: function() {
 
@@ -99,6 +99,7 @@ module.exports = {
 		if (isNoValue(password)) return fail('缺失密码')
 		if (password !== confirmPassword) return fail('两次密码输入不一致')
 		if (isNoValue(phone)) return fail('缺失手机号')
+		if (!lodash.isNumber(phone)) return fail('手机号字段类型不正确')
 		if (!isPhone(phone)) return fail('手机号格式不正确')
 		if (isNoValue(code)) return fail('缺失验证码')
 
@@ -167,6 +168,7 @@ module.exports = {
 		if (isNoValue(password)) return fail('缺失密码')
 		if (password !== confirmPassword) return fail('两次密码输入不一致')
 		if (isNoValue(phone)) return fail('缺失手机号')
+		if (!lodash.isNumber(phone)) return fail('手机号字段类型不正确')
 		if (!isPhone(phone)) return fail('手机号格式不正确')
 		if (isNoValue(code)) return fail('缺失验证码')
 
