@@ -6,8 +6,8 @@
 // 	password: '63e43c5a835bf7e735feb2c094e7f532'
 // })
 
-getUserById({
-	id: '64b940668b0da41af0d4a472'
+getUserInfo({
+	userId: '64b940668b0da41af0d4a472'
 })
 
 // register({
