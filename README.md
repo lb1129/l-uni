@@ -46,7 +46,7 @@
   <tr>
     <td align="center">
       <img
-        src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/mp-weixin.jpg"
+        src="https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/qrcode/mp-weixin.jpg"
         width="180"
         height="180"
       />
@@ -54,7 +54,7 @@
     </td>
     <td align="center">
       <img
-        src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/apk.png"
+        src="https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/qrcode/apk.png"
         width="180"
         height="180"
       />
@@ -62,7 +62,7 @@
     </td>
     <td align="center">
       <img
-        src="https://github.com/lb1129/l-uni/blob/master/qrcode_image/h5.png"
+        src="https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/qrcode/h5.png"
         width="180"
         height="180"
       />
