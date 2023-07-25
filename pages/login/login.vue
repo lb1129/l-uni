@@ -40,7 +40,7 @@
 				</view>
 			</uni-popup-dialog>
 		</uni-popup>
-		<!-- #ifdef APP-PLUS | MP-WEIXIN -->
+		<!-- #ifdef MP-WEIXIN -->
 		<view class="login-weixin">
 			<uni-icons type="weixin" :color="$theme" :size="40" @click="weixinLoginHandler"></uni-icons>
 		</view>
