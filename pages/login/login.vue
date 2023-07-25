@@ -157,13 +157,6 @@
 				})
 				uni.switchTab({
 					url: '/pages/home/home'
-				}).then(() => {
-					// #ifdef APP-PLUS
-					uni.setNavigationBarColor({
-						frontColor: '#ffffff',
-						backgroundColor: this.$theme
-					})
-					// #endif
 				})
 			},
 			login() {

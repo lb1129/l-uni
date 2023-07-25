@@ -27,6 +27,10 @@ export function createApp() {
 		},
 		onShow() {
 			// 页面onShow时 处理原生导航栏背景多主题，导航栏标题多语言，tabbar多主题多语言
+			let time = 0
+			// #ifdef APP-PLUS
+			time = 60
+			// #endif
 			setTimeout(() => {
 				const pages = getCurrentPages();
 				const page = pages[pages.length - 1];
@@ -67,7 +71,7 @@ export function createApp() {
 					})
 					// #endif
 				}
-			})
+			}, time)
 		}
 	})
 	return {
