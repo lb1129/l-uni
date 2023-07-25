@@ -3,6 +3,7 @@ module.exports = [
 	["auth", "logout"],
 	["user", "getUserInfo"],
 	["user", "editUserInfo"],
+	["user", "setPhone"],
 	['push'],
 	['menu', 'getMenu'],
 	['product', 'getProductById'],
