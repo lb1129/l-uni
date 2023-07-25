@@ -9,7 +9,8 @@
 				"_id": "64b940668b0da41af0d4a472",
 				"username": "admin",
 				"password": "63e43c5a835bf7e735feb2c094e7f532",
-				"phone": 15986407941
+				"phone": 15986407941,
+				"avatar": "https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/user.png"
 			}
 		],
 		"index": [{ // 索引
