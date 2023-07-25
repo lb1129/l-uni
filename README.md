@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://lb1129.github.io/l-uni/">
+  <a href="https://www.leibo.group/l-uni">
     <img width="100" src="https://github.com/lb1129/l-uni/blob/master/static/image/logo.png">
   </a>
 </p>
