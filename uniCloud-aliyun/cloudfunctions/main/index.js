@@ -104,7 +104,12 @@ exports.main = async (event = {}, context) => {
 			...data,
 			...authorize
 		}
-	} catch (e) {}
+	} catch (e) {
+		data = {
+			...queryStringParameters,
+			...authorize
+		}
+	}
 
 	// 为云函数
 	if (len === 1) {
