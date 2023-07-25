@@ -55,7 +55,7 @@ module.exports = {
 				username: dbCmd.eq(username),
 				password: dbCmd.eq(aesEncryptRes.data)
 			}, {
-				phone: dbCmd.eq(username),
+				phone: dbCmd.eq(Number(username)),
 				password: dbCmd.eq(aesEncryptRes.data)
 			})).get()
 			if (res.affectedDocs) {
