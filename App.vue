@@ -11,11 +11,13 @@
 	import '@/interceptor/request/index.js'
 	import {
 		isLoginServe
-	} from '@/serves/login.js'
+	} from '@/serves/auth.js'
 	import {
-		getMenuServe,
 		getUserInfoServe
 	} from '@/serves/user.js'
+	import {
+		getMenuServe
+	} from '@/serves/menu.js'
 	// #ifdef APP-PLUS
 	import wgtUpdate from '@/common/wgtUpdate.js'
 	// #endif

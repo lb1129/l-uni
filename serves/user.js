@@ -1,25 +1,23 @@
 import {
-	menu_api,
-	userInfo_api
+	userInfo_get_api,
+	userInfo_edit_api,
+	userInfo_set_phone_api
 } from '@/interceptor/request/api.js'
-import {
-	menuServeMock,
-	userInfoServeMock,
-	userInfoPostServeMock
-} from '@/mock/index.js'
 
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const getMenuServe = () => menuServeMock({
-	url: menu_api
+export const getUserInfoServe = () => uni.request({
+	url: userInfo_get_api
 })
 
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const getUserInfoServe = () => userInfoServeMock({
-	url: userInfo_api
-})
-
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const editUserInfoServe = (userInfo) => userInfoPostServeMock({
-	url: userInfo_api,
+export const editUserInfoServe = (userInfo) => uni.request({
+	url: userInfo_edit_api,
 	data: userInfo
+})
+
+export const setPhoneServe = (ops) => uni.request({
+	url: userInfo_set_phone_api,
+	data: {
+		phone: Number(ops.phone),
+		code: ops.code
+	},
+	method: 'POST'
 })

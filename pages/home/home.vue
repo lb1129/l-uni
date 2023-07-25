@@ -1,5 +1,5 @@
 <template>
-	<template v-for="menu in menuData" :key="menu.name">
+	<template v-for="menu in menuData" :key="menu.path">
 		<uni-section :title="menu.name" padding>
 			<template v-slot:decoration>
 				<view class="home-decoration" :style="{
@@ -9,7 +9,7 @@
 			<uni-grid :column="4">
 				<uni-grid-item v-for="child in menu.children" :key="child.name">
 					<app-icon-text :icon-type="child.icon"
-						@click="clickHandler(child.path)">{{child.name}}</app-icon-text>
+						@click="clickHandler(`${menu.path}${child.path}`)">{{child.name}}</app-icon-text>
 				</uni-grid-item>
 			</uni-grid>
 		</uni-section>
@@ -28,7 +28,7 @@
 	} from 'vuex'
 	import {
 		getMenuServe
-	} from '@/serves/user.js'
+	} from '@/serves/menu.js'
 	export default {
 		data() {
 			return {
@@ -49,7 +49,7 @@
 		// 页面级别的下拉刷新
 		onPullDownRefresh() {
 			getMenuServe().then((res) => {
-				this.setMenuData(menuRes.data)
+				this.setMenuData(res.data)
 				uni.stopPullDownRefresh()
 			}).catch(err => {
 				uni.stopPullDownRefresh()

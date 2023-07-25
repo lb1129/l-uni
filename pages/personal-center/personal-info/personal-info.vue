@@ -10,8 +10,11 @@
 				<app-avatar :src="$userInfo.avatar" width="40px" height="40px"></app-avatar>
 			</template>
 		</uni-list-item>
-		<uni-list-item :title="$t('userName')" to="/pages/personal-center/edit-user-name/edit-user-name" showArrow
-			:right-text="$userInfo.userName">
+		<uni-list-item :title="$t('nickname')" to="/pages/personal-center/edit-nickname/edit-nickname" showArrow
+			:right-text="$userInfo.nickname">
+		</uni-list-item>
+		<uni-list-item :title="$t('mobileNumber')" to="/pages/personal-center/edit-phone/edit-phone" showArrow
+			:right-text="phone">
 		</uni-list-item>
 	</uni-list>
 </template>
@@ -29,6 +32,11 @@
 
 			}
 		},
+		computed: {
+			phone() {
+				return this.$userInfo.phone ? `${this.$userInfo.phone}` : this.$t('none')
+			}
+		},
 		methods: {
 			...mapActions(['setUserInfo']),
 			changeAvatarHandler() {
@@ -36,41 +44,32 @@
 					count: 1,
 					sourceType: ['camera', 'album'],
 					sizeType: ['compressed', 'original'],
-					success: (res) => {
-						// mock serve
-						// #ifdef H5
-						const render = new FileReader()
-						render.readAsDataURL(res.tempFiles[0])
-						render.onload = (e) => {
-							editUserInfoServe({
-								avatar: e.target.result
-							}).then(res => {
-								this.setUserInfo(res.data)
-							})
-						}
-						// #endif
-						// #ifdef APP-PLUS | MP
-						uni.saveFile({
-							tempFilePath: res.tempFilePaths[0],
-							success: (res) => {
-								editUserInfoServe({
-									avatar: res.savedFilePath
-								}).then(res => {
-									this.setUserInfo(res.data)
+					success: async (res) => {
+						if (res.tempFilePaths.length > 0) {
+							let filePath = res.tempFilePaths[0]
+							let cloudPath = ''
+							// #ifdef H5
+							cloudPath = Date.now() + res.tempFiles[0].name.substring(res.tempFiles[0].name
+								.lastIndexOf('.'))
+							// #endif
+							// #ifndef H5
+							cloudPath = Date.now() + res.tempFiles[0].path.substring(res.tempFiles[0].path
+								.lastIndexOf('.'))
+							// #endif
+							try {
+								const result = await uniCloud.uploadFile({
+									filePath: filePath,
+									cloudPath
 								})
-							}
-						})
-						// #endif
-
-						// TODO call upload api
-						// uni.uploadFile({
-						// 	url: '',
-						// 	filePath: res.tempFilePaths[0],
-						// 	name: 'file',
-						// 	success: (uploadFileRes) => {
-						// 		// this.avatarUrl = uploadFileRes.data.data
-						// 	}
-						// })
+								await editUserInfoServe({
+									avatar: result.fileID
+								})
+								this.setUserInfo({
+									...this.$userInfo,
+									avatar: result.fileID
+								})
+							} catch (e) {}
+						}
 					}
 				})
 			}

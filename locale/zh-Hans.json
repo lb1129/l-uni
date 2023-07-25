@@ -7,7 +7,7 @@
 	"systemSetting": "系统设置",
 	"aboutUs": "关于我们",
 	"personalInfo": "个人资料",
-	"editUserName": "修改用户名",
+	"editNickname": "修改昵称",
 	"privacyPolicy": "隐私政策",
 	"login": "登录",
 	"register": "注册",
@@ -27,6 +27,7 @@
 	"twoPasswordsDoNotMatch": "两次输入的密码不匹配",
 	"pleaseEnterPhoneOrUserName": "请输入手机号/用户名",
 	"pleaseEnterUserName": "请输入用户名",
+	"pleaseEnterNickname": "请输入昵称",
 	"pleaseEnterPassword": "请输入密码",
 	"pleaseEnterNewPassword": "请输入新密码",
 	"pleaseEnterMobileNumber": "请输入手机号",
@@ -38,6 +39,7 @@
 	"logOut": "退出登录",
 	"avatar": "头像",
 	"userName": "用户名",
+	"nickname": "昵称",
 	"tip": "提示",
 	"areYouSureToLogOut": "确定注销登录吗？",
 	"signingOutPleaseWait": "正在注销，请稍等 ...",
@@ -59,5 +61,11 @@
 	"noAppId": "未申请微信开放平台appId",
 	"noData": "暂无数据",
 	"haveNewVersion": "有新版本发布，是否更新？",
-	"updateFailed": "更新失败"
+	"updateFailed": "更新失败",
+	"registerSuccess": "注册成功，即将跳转登录页",
+	"findPasswordSuccess": "密码找回成功，即将跳转登录页",
+	"passwordRule": "7-10个字符，由数字，英文大小写组成",
+	"phoneRule": "手机号格式不正确",
+	"none": "无",
+	"editPhone": "修改手机号"
 }

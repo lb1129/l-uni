@@ -4,7 +4,7 @@
 			margin: '45px 0 10px 0'
 		}"></app-avatar>
 		<view>
-			<text>{{$userInfo.userName}}</text>
+			<text>{{$userInfo.nickname}}</text>
 		</view>
 	</view>
 	<uni-list>
@@ -22,7 +22,7 @@
 	} from '@/storage/index.js'
 	import {
 		logoutServe
-	} from '@/serves/login.js'
+	} from '@/serves/auth.js'
 	import {
 		mapActions
 	} from 'vuex'

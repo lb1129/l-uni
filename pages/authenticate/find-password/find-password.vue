@@ -25,6 +25,10 @@
 						@click="getCodeHandler">{{codeText}}</app-button>
 				</uni-col>
 			</uni-row>
+			<view v-if="phoneCode">
+				<app-text>{{phoneCode}}</app-text>
+				<app-gap gap="20px"></app-gap>
+			</view>
 			<app-text like-link @click="clickHandler">{{$t('haveAnAccount')}}</app-text>
 			<app-gap gap="20px"></app-gap>
 			<app-button @click="confirmHandler">{{$t('confirm')}}</app-button>
@@ -34,10 +38,21 @@
 </template>
 
 <script>
+	import {
+		findPasswordServe
+	} from '@/serves/auth.js'
+	import {
+		sendCodeServe
+	} from '@/serves/other.js'
+	import {
+		isPhone,
+		isPassword
+	} from '@/utils/validate.js'
 	export default {
 		data() {
 			return {
 				codeTime: 0,
+				phoneCode: null,
 				model: {
 					password: '',
 					confirmPassword: '',
@@ -49,6 +64,14 @@
 						rules: [{
 							required: true,
 							errorMessage: this.$t('pleaseEnterPassword'),
+						}, {
+							validateFunction: (rule, value, data, callback) => {
+								if (value && !isPassword(value)) {
+									callback(this.$t('passwordRule'))
+								} else {
+									callback()
+								}
+							}
 						}]
 					},
 					confirmPassword: {
@@ -69,6 +92,14 @@
 						rules: [{
 							required: true,
 							errorMessage: this.$t('pleaseEnterMobileNumber'),
+						}, {
+							validateFunction: (rule, value, data, callback) => {
+								if (value && !isPhone(value)) {
+									callback(this.$t('phoneRule'))
+								} else {
+									callback()
+								}
+							}
 						}]
 					},
 					code: {
@@ -92,13 +123,15 @@
 			async getCodeHandler() {
 				try {
 					const values = await this.$refs.form.validateField('phone')
-					// TODO get code by api
-					// start timer
+					const res = await sendCodeServe(values.phone)
+					// TODO 短信服务暂未接入运营商 先直接显示在前端
+					this.phoneCode = res.data
 					this.codeTime = 60
 					this.timer = setInterval(() => {
-						if (this.codeTime <= 0)
+						if (this.codeTime <= 0) {
+							this.phoneCode = null
 							clearInterval(this.timer)
-						else
+						} else
 							this.codeTime--
 					}, 1000)
 				} catch (e) {
@@ -108,8 +141,17 @@
 			async confirmHandler() {
 				try {
 					const values = await this.$refs.form.validate()
-					// TODO find password by api 
-					// success navigate to login
+					await findPasswordServe(values)
+					uni.showToast({
+						icon: 'none',
+						title: this.$t('findPasswordSuccess'),
+						duration: 800
+					})
+					setTimeout(() => {
+						uni.navigateTo({
+							url: '/pages/login/login'
+						})
+					}, 800)
 				} catch (e) {
 
 				}

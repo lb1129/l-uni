@@ -11,10 +11,17 @@ export const operateAuthMixin = {
 			// 找到该页面操作权限
 			let operateAuth = {}
 			let menuData = [...this.$menuData]
+			let pathArr = []
 			while (menuData.length) {
 				const record = menuData.shift()
-				if (pathFull(record.path) === path) {
-					operateAuth = record.operateAuth
+				if (
+					pathArr.length &&
+					pathArr[pathArr.length - 1].children.findIndex((child) => child._id === record._id) === -1
+				)
+					pathArr = []
+				pathArr.push(record)
+				if (pathFull(pathArr.map(item => item.path).join('')) === path) {
+					operateAuth = record.operate_auth
 					break
 				} else {
 					const children = record.children

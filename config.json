@@ -1,6 +1,6 @@
 {
 	"theme": "#52c41a",
-	"h5_website": "https://lb1129.github.io/l-uni",
-	"baseUrl": "http://api.leibo.group",
+	"h5_website": "https://www.leibo.group/l-uni",
+	"baseUrl": "https://api.leibo.group",
 	"timeout": 60000
 }

@@ -1,13 +1,13 @@
 <template>
 	<app-authenticate-layout>
 		<uni-forms ref="form" :rules="rules" :model="model" :label-width="0">
-			<uni-forms-item name="userName">
-				<uni-easyinput :primaryColor="$theme" :inputBorder="false" v-model="model.userName"
-					:placeholder="`${$t('PhoneOrUserName')} viho/user`" />
+			<uni-forms-item name="username">
+				<uni-easyinput :primaryColor="$theme" :inputBorder="false" v-model="model.username"
+					:placeholder="$t('PhoneOrUserName')" />
 			</uni-forms-item>
 			<uni-forms-item name="password">
 				<uni-easyinput :primaryColor="$theme" v-model="model.password" type="password" :inputBorder="false"
-					:placeholder="`${$t('password')} a123456`" />
+					:placeholder="$t('password')" />
 			</uni-forms-item>
 		</uni-forms>
 		<view>
@@ -55,11 +55,13 @@
 	import {
 		loginServe,
 		loginByWxServe
-	} from '@/serves/login.js'
+	} from '@/serves/auth.js'
 	import {
-		getMenuServe,
 		getUserInfoServe
 	} from '@/serves/user.js'
+	import {
+		getMenuServe
+	} from '@/serves/menu.js'
 	import {
 		tokenStorage
 	} from '@/storage/index.js'
@@ -68,11 +70,11 @@
 			return {
 				agree: false,
 				model: {
-					userName: '',
+					username: '',
 					password: ''
 				},
 				rules: {
-					userName: {
+					username: {
 						rules: [{
 							required: true,
 							errorMessage: this.$t('pleaseEnterPhoneOrUserName')
@@ -104,11 +106,16 @@
 							const {
 								code
 							} = event
-							//客户端成功获取授权临时票据（code）,向业务服务器发起登录请求
-							loginByWxServe({
-								code
-							}).then(res => {
-								this.loginSuccessAfterHandler(res.data)
+							// TODO 获取的时匿名昵称和头像 建议使用微信小程序头像昵称填写能力
+							uni.getUserInfo({
+								provider: 'weixin',
+								success: async (e) => {
+									const res = await loginByWxServe({
+										userInfo: e.userInfo,
+										code
+									})
+									this.loginSuccessAfterHandler(res.data)
+								}
 							})
 						}
 					})
@@ -151,10 +158,12 @@
 				uni.switchTab({
 					url: '/pages/home/home'
 				}).then(() => {
+					// #ifdef APP-PLUS
 					uni.setNavigationBarColor({
 						frontColor: '#ffffff',
 						backgroundColor: this.$theme
 					})
+					// #endif
 				})
 			},
 			login() {

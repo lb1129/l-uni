@@ -4,7 +4,7 @@
 	</uni-search-bar>
 	<uni-list>
 		<uni-swipe-action>
-			<uni-swipe-action-item v-for="(item, index) in dataSource" :key="item.id" :right-options="options"
+			<uni-swipe-action-item v-for="(item, index) in dataSource" :key="item._id" :right-options="options"
 				@click="actionItemClickHandler($event, item, index)">
 				<uni-list-chat clickable @click="itemClickHandler(item)" :avatar-circle="true" :title="item.name"
 					:avatar="item.images[0]" :note="item.brand" :time="`￥${item.price}`"></uni-list-chat>
@@ -31,10 +31,9 @@
 				loading: false,
 				queryParams: {
 					keyword: '',
-					pagination: {
-						pageNo: 1,
-						pageSize: 10
-					},
+
+					pageNo: 1,
+					pageSize: 10
 				},
 				dataSource: [],
 				total: 0
@@ -69,7 +68,7 @@
 							success: async (res) => {
 								if (res.confirm) {
 									try {
-										await deleteProductByIdsServe([record.id])
+										await deleteProductByIdsServe([record._id])
 										this.dataSource.splice(index, 1)
 											--this.total
 										if (this.status === 'more') {
@@ -82,7 +81,7 @@
 													windowTop
 												} = uni.getWindowInfo()
 												if (top - windowHeight - windowTop <= 50) {
-													this.queryParams.pagination.pageNo++
+													this.queryParams.pageNo++
 													this.loadData()
 												}
 											}).exec();
@@ -101,7 +100,7 @@
 						url: qs.stringifyUrl({
 							url: '/pages/product-manage/product-detail/product-detail',
 							query: {
-								id: record.id
+								id: record._id
 							}
 						})
 					})
@@ -111,7 +110,7 @@
 			searchClearHandler() {
 				if (this.queryParams.keyword) {
 					this.queryParams.keyword = ''
-					this.queryParams.pagination.pageNo = 1
+					this.queryParams.pageNo = 1
 					this.dataSource = []
 					this.loadData()
 				}
@@ -120,7 +119,7 @@
 				const value = e.value
 				if (this.queryParams.keyword !== value) {
 					this.queryParams.keyword = value
-					this.queryParams.pagination.pageNo = 1
+					this.queryParams.pageNo = 1
 					this.dataSource = []
 					this.loadData()
 				}
@@ -138,7 +137,7 @@
 			}
 		},
 		onPullDownRefresh() {
-			this.queryParams.pagination.pageNo = 1
+			this.queryParams.pageNo = 1
 			this.dataSource = []
 			this.loadData().finally(() => {
 				uni.stopPullDownRefresh()
@@ -146,7 +145,7 @@
 		},
 		onReachBottom() {
 			if (this.status === 'more') {
-				this.queryParams.pagination.pageNo++
+				this.queryParams.pageNo++
 				this.loadData()
 			}
 		},
@@ -158,7 +157,7 @@
 			const searchBarHeight = 56
 			const listItemHeight = 67
 			const pageSize = Math.ceil((windowHeight - searchBarHeight) / listItemHeight) + 1
-			this.queryParams.pagination.pageSize = pageSize
+			this.queryParams.pageSize = pageSize
 			this.loadData()
 		}
 	}

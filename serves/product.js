@@ -1,41 +1,33 @@
 import {
-	product_api,
+	product_get_by_id_api,
+	product_delete_api,
+	product_save_api,
 	products_api
 } from '@/interceptor/request/api.js'
 import qs from 'query-string'
-import {
-	productGetServeMock,
-	getProductsServeMock,
-	productPostServeMock,
-	productDeleteServeMock
-} from '@/mock/index.js'
 
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const getProductByIdServe = (id) => productGetServeMock({
+export const getProductByIdServe = (id) => uni.request({
 	url: qs.stringifyUrl({
-		url: product_api,
+		url: product_get_by_id_api,
 		query: {
 			id
 		}
 	})
 })
 
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const saveProductServe = (product) => productPostServeMock({
-	url: product_api,
+export const saveProductServe = (product) => uni.request({
+	url: product_save_api,
 	method: 'POST',
 	data: product
 })
 
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const deleteProductByIdsServe = (ids) => productDeleteServeMock({
-	url: product_api,
+export const deleteProductByIdsServe = (ids) => uni.request({
+	url: product_delete_api,
 	method: 'DELETE',
 	data: ids
 })
 
-// NOTE 有服务接口 则把 ServeMock 切换成 uni.request
-export const getProductsServe = (params) => getProductsServeMock({
+export const getProductsServe = (params) => uni.request({
 	url: products_api,
 	method: 'POST',
 	data: params

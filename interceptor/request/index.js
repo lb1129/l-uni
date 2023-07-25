@@ -16,11 +16,12 @@ uni.addInterceptor('request', {
 			args.url = `${baseUrl}${args.url}`
 			if (!args.header) args.header = {}
 			// 请求头 Bearer token
-			args.header.Authorization = tokenStorage.get()
+			args.header.Authorization = `Bearer ${tokenStorage.get()}`
 			// 请求头 语言
 			args.header['Accept-Language'] = uni.getLocale()
 		}
 		if (!args.timeout) args.timeout = timeout
+		uni.showLoading()
 	},
 	success(res, req) {
 		// 服务器只要响应 不管http状态码多少 都会进来
@@ -43,11 +44,12 @@ uni.addInterceptor('request', {
 				}
 			}
 		}
-		if (!req.hiddenErrMsg && res.statusCode >= 300)
+		if (!req.hiddenErrMsg && res.statusCode >= 300 && res.statusCode !== 401)
 			uni.showToast({
 				icon: 'none',
-				title: res.data.message
+				title: res.data.errMsg
 			})
+		uni.hideLoading()
 	},
 	fail(e) {
 		// 服务器未响应错误 服务器不存在 timeout 服务器宕机
@@ -56,6 +58,7 @@ uni.addInterceptor('request', {
 				icon: 'none',
 				title: e.errMsg
 			})
+		uni.hideLoading()
 	},
 	async returnValue(p) {
 		// 推荐外部使用 promise | async await 处理异步
@@ -71,7 +74,6 @@ uni.addInterceptor('request', {
 					const pages = getCurrentPages()
 					const page = pages[pages.length - 1]
 					if (page && page.route !== 'pages/login/login') {
-						isAuthenticated.value = Promise.reject('isAuthenticated false')
 						tokenStorage.clear()
 						uni.reLaunch({
 							url: '/pages/login/login'

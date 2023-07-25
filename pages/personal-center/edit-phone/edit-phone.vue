@@ -1,18 +1,6 @@
 <template>
-	<app-authenticate-layout>
+	<view class="edit-phone">
 		<uni-forms ref="form" :rules="rules" :model="model" :label-width="0">
-			<uni-forms-item name="username">
-				<uni-easyinput :primaryColor="$theme" :inputBorder="false" v-model="model.username"
-					:placeholder="$t('userName')" />
-			</uni-forms-item>
-			<uni-forms-item name="password">
-				<uni-easyinput :primaryColor="$theme" v-model="model.password" type="password" :inputBorder="false"
-					:placeholder="$t('password')" />
-			</uni-forms-item>
-			<uni-forms-item name="confirmPassword">
-				<uni-easyinput :primaryColor="$theme" v-model="model.confirmPassword" type="password"
-					:inputBorder="false" :placeholder="$t('confirmPassword')" />
-			</uni-forms-item>
 			<uni-forms-item name="phone">
 				<uni-easyinput :primaryColor="$theme" type="number" maxlength="11" v-model="model.phone"
 					:inputBorder="false" :placeholder="$t('mobileNumber')" />
@@ -33,72 +21,34 @@
 				<app-text>{{phoneCode}}</app-text>
 				<app-gap gap="20px"></app-gap>
 			</view>
-			<app-text like-link @click="clickHandler">{{$t('haveAnAccount')}}</app-text>
-			<app-gap gap="20px"></app-gap>
-			<app-button @click="registerHandler">{{$t('register')}}</app-button>
+			<app-button @click="confirmHandler">{{$t('confirm')}}</app-button>
 		</uni-forms>
-		<app-gap></app-gap>
-	</app-authenticate-layout>
+	</view>
 </template>
 
 <script>
 	import {
-		registerServe
-	} from '@/serves/auth.js'
+		setPhoneServe
+	} from '@/serves/user.js'
 	import {
 		sendCodeServe
 	} from '@/serves/other.js'
 	import {
-		isPhone,
-		isPassword
+		isPhone
 	} from '@/utils/validate.js'
+	import {
+		mapActions
+	} from 'vuex'
 	export default {
 		data() {
 			return {
 				codeTime: 0,
 				phoneCode: null,
 				model: {
-					username: '',
-					password: '',
-					confirmPassword: '',
 					phone: null,
 					code: ''
 				},
 				rules: {
-					username: {
-						rules: [{
-							required: true,
-							errorMessage: this.$t('pleaseEnterUserName'),
-						}]
-					},
-					password: {
-						rules: [{
-							required: true,
-							errorMessage: this.$t('pleaseEnterPassword'),
-						}, {
-							validateFunction: (rule, value, data, callback) => {
-								if (value && !isPassword(value)) {
-									callback(this.$t('passwordRule'))
-								} else {
-									callback()
-								}
-							}
-						}]
-					},
-					confirmPassword: {
-						rules: [{
-							required: true,
-							errorMessage: this.$t('pleaseEnterPassword'),
-						}, {
-							validateFunction: (rule, value, data, callback) => {
-								if (!value || data.password === value) {
-									callback()
-								} else {
-									callback(this.$t('twoPasswordsDoNotMatch'))
-								}
-							}
-						}]
-					},
 					phone: {
 						rules: [{
 							required: true,
@@ -128,9 +78,6 @@
 			}
 		},
 		methods: {
-			clickHandler() {
-				uni.navigateBack()
-			},
 			async getCodeHandler() {
 				try {
 					const values = await this.$refs.form.validateField('phone')
@@ -149,28 +96,26 @@
 
 				}
 			},
-			async registerHandler() {
+			async confirmHandler() {
 				try {
 					const values = await this.$refs.form.validate()
-					await registerServe(values)
-					uni.showToast({
-						icon: 'none',
-						title: this.$t('registerSuccess'),
-						duration: 800
+					await setPhoneServe(values)
+					this.setUserInfo({
+						...this.$userInfo,
+						phone: values.phone
 					})
-					setTimeout(() => {
-						uni.navigateTo({
-							url: '/pages/login/login'
-						})
-					}, 800)
+					uni.navigateBack()
 				} catch (e) {
 
 				}
-			}
+			},
+			...mapActions(['setUserInfo'])
 		}
 	}
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+	.edit-phone {
+		padding: 30px;
+	}
 </style>

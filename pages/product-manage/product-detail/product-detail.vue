@@ -56,10 +56,9 @@
 		},
 		inheritAttrs: false,
 		async onLoad(e) {
-			this.id = e.id
-			if (this.id) {
+			if (e.id) {
 				try {
-					const res = await getProductByIdServe(this.id)
+					const res = await getProductByIdServe(e.id)
 					this.record = res.data
 				} catch (e) {}
 			}
@@ -68,7 +67,7 @@
 		onShareAppMessage(res) {
 			return {
 				title: this.record.name,
-				path: `/pages/product-manage/product-detail/product-detail?id=${this.id}`
+				path: `/pages/product-manage/product-detail/product-detail?id=${this.record._id}`
 			}
 		},
 		// 微信小程序 分享到微信朋友圈
@@ -91,9 +90,9 @@
 				// 	title: this.record.name,
 				// 	miniProgram: {
 				// 		id: 'gh_6877f5cad59a',
-				// 		path: `pages/product-manage/product-detail/product-detail?id=${this.id}`,
+				// 		path: `pages/product-manage/product-detail/product-detail?id=${this.record._id}`,
 				// 		type: 0,
-				// 		webUrl: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`
+				// 		webUrl: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.record._id}`
 				// 	},
 				// 	success: (res) => {
 				// 		uni.showToast({
@@ -114,7 +113,7 @@
 						provider: "weixin",
 						scene: "WXSceneSession",
 						type: 0,
-						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`,
+						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.record._id}`,
 						title: this.record.name,
 						summary: this.record.desc,
 						imageUrl: this.record.images[0],
@@ -135,7 +134,7 @@
 				if (process.env.NODE_ENV === 'production')
 					uni.shareWithSystem({
 						summary: '',
-						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.id}`,
+						href: `${config.h5_website}/#/pages/product-manage/product-detail/product-detail?id=${this.record._id}`,
 						success: () => {},
 						fail: () => {
 							uni.showToast({

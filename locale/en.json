@@ -7,7 +7,7 @@
 	"systemSetting": "System setting",
 	"aboutUs": "About us",
 	"personalInfo": "Personal info",
-	"editUserName": "Edit user name",
+	"editNickname": "Edit nickname",
 	"privacyPolicy": "Privacy policy",
 	"login": "Login",
 	"register": "register",
@@ -27,6 +27,7 @@
 	"PhoneOrUserName": "phone/userName",
 	"pleaseEnterPhoneOrUserName": "Please enter phone/userName",
 	"pleaseEnterUserName": "Please enter user name",
+	"pleaseEnterNickname": "Please enter nickname",
 	"pleaseEnterPassword": "Please enter password",
 	"pleaseEnterNewPassword": "Please enter new password",
 	"pleaseEnterMobileNumber": "Please enter mobile number",
@@ -38,6 +39,7 @@
 	"logOut": "Log out",
 	"avatar": "Avatar",
 	"userName": "User name",
+	"nickname": "Nickname",
 	"tip": "Tip",
 	"areYouSureToLogOut": "Are you sure to log out?",
 	"signingOutPleaseWait": "Signing out, please wait ...",
@@ -59,5 +61,11 @@
 	"noAppId": "No appId",
 	"noData": "No data",
 	"haveNewVersion": "There is a new version released, do you want to update it?",
-	"updateFailed": "Update failed"
+	"updateFailed": "Update failed",
+	"registerSuccess": "Successfully registered, about to jump to login page",
+	"findPasswordSuccess": "Password successfully retrieved, about to jump to login page",
+	"passwordRule": "7-10 characters, consisting of numbers, uppercase and lowercase in English",
+	"phoneRule": "Incorrect phone number format",
+	"none": "None",
+	"editPhone": "Edit phone"
 }

@@ -1,6 +1,6 @@
 <template>
 	<uni-easyinput :primary-color="$theme" focus :input-border="false" v-model="innerValue"
-		:placeholder="$t('pleaseEnterUserName')"></uni-easyinput>
+		:placeholder="$t('pleaseEnterNickname')"></uni-easyinput>
 	<view class="edit-user-name">
 		<text class="edit-user-name-text">{{$t('userNameRule')}}</text>
 		<app-gap gap="50px"></app-gap>
@@ -37,10 +37,13 @@
 					})
 				} else {
 					try {
-						const res = await editUserInfoServe({
-							userName: this.innerValue
+						await editUserInfoServe({
+							nickname: this.innerValue
 						})
-						this.setUserInfo(res.data)
+						this.setUserInfo({
+							...this.$userInfo,
+							nickname: this.innerValue
+						})
 						uni.navigateBack()
 					} catch (e) {}
 				}
@@ -48,7 +51,7 @@
 			...mapActions(['setUserInfo'])
 		},
 		watch: {
-			'$userInfo.userName': {
+			'$userInfo.nickname': {
 				handler(newValue) {
 					this.innerValue = newValue
 				},

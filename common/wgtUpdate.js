@@ -1,19 +1,12 @@
 import i18n from '@/locale/i18n.js'
 import {
-	wgtUpdate_api
-} from '@/interceptor/request/api.js'
+	wgtUpdateServe
+} from '@/serves/other.js'
 
 const wgtUpdate = () => {
 	plus.runtime.getProperty(plus.runtime.appid, async (widgetInfo) => {
 		try {
-			const wgtUpdateRes = await uni.request({
-				url: wgtUpdate_api,
-				hiddenErrMsg: true,
-				data: {
-					version: widgetInfo.version,
-					name: widgetInfo.name
-				}
-			})
+			const wgtUpdateRes = await wgtUpdateServe(widgetInfo.version)
 			const modalRes = await uni.showModal({ //提醒用户更新
 				title: i18n.global.t('tip'),
 				content: i18n.global.t('haveNewVersion')

@@ -59,9 +59,14 @@
 					"navigationBarTitleText": "%personalInfo%"
 				}
 			}, {
-				"path": "edit-user-name/edit-user-name",
+				"path": "edit-nickname/edit-nickname",
 				"style": {
-					"navigationBarTitleText": "%editUserName%"
+					"navigationBarTitleText": "%editNickname%"
+				}
+			}, {
+				"path": "edit-phone/edit-phone",
+				"style": {
+					"navigationBarTitleText": "%editPhone%"
 				}
 			}]
 		}, {
