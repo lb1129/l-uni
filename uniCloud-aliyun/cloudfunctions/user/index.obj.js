@@ -39,13 +39,15 @@ module.exports = {
 	async editUserInfo(ops = {}) {
 		const {
 			userId,
-			username
+			username,
+			avatar
 		} = ops
 
 		try {
 			const db = uniCloud.database()
 			await db.collection('user').doc(userId).update({
-				username
+				username,
+				avatar
 			})
 			return success(userId)
 		} catch (e) {
