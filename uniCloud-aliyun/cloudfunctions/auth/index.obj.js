@@ -161,6 +161,8 @@ module.exports = {
 			})
 			const addRes = await collection.add({
 				username,
+				// nickname 默认 username
+				nickname: username,
 				password: aesEncryptRes.data,
 				phone,
 				// 默认头像
