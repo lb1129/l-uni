@@ -141,7 +141,9 @@ module.exports = {
 
 		try {
 			const db = uniCloud.database()
-			const collection = db.collection('product')
+			const collection = db.collection('product').field({
+				user_id: false
+			})
 			const query = collection.where({
 				name: new RegExp(`^${keyword}`, 'i')
 			})
