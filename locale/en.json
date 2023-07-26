@@ -67,5 +67,6 @@
 	"passwordRule": "7-10 characters, consisting of numbers, uppercase and lowercase in English",
 	"phoneRule": "Incorrect phone number format",
 	"none": "None",
-	"editPhone": "Edit phone"
+	"editPhone": "Edit phone",
+	"message": "Message"
 }

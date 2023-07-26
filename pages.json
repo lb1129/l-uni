@@ -17,6 +17,12 @@
 			"style": {
 				"navigationBarTitleText": "%me%"
 			}
+		}, {
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "%message%",
+				"enablePullDownRefresh": true
+			}
 		}
 	],
 	"subPackages": [{
@@ -123,13 +129,19 @@
 		"list": [{
 				"pagePath": "pages/home/home",
 				"iconPath": "/static/tabbar/home.png",
-				"selectedIconPath": "/static/tabbar/home-007aff.png",
+				"selectedIconPath": "/static/tabbar/home-52c41a.png",
 				"text": "%home%"
+			},
+			{
+				"pagePath": "pages/message/message",
+				"iconPath": "/static/tabbar/message.png",
+				"selectedIconPath": "/static/tabbar/message-52c41a.png",
+				"text": "%message%"
 			},
 			{
 				"pagePath": "pages/me/me",
 				"iconPath": "/static/tabbar/user.png",
-				"selectedIconPath": "/static/tabbar/user-007aff.png",
+				"selectedIconPath": "/static/tabbar/user-52c41a.png",
 				"text": "%me%"
 			}
 		]

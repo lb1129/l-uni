@@ -12,6 +12,7 @@ export const login_by_wx_api = '/api/oauth/loginByWx'
 export const userInfo_get_api = '/api/user/getUserInfo'
 export const userInfo_edit_api = '/api/user/editUserInfo'
 export const userInfo_set_phone_api = '/api/user/setPhone'
+export const userInfo_set_PushClientId_api = '/api/user/setPushClientId'
 
 // 产品模块
 export const product_get_by_id_api = '/api/product/getProductById'
@@ -28,3 +29,9 @@ export const rsa_public_key_api = '/api/rsa/getPublicKey'
 // 其他
 export const sendCode_api = '/api/sendCode'
 export const wgtUpdate_api = '/api/wgtUpdate'
+
+// 消息模块
+export const message_set_read_api = '/api/message/setMessageRead'
+export const message_get_by_id_api = '/api/message/getMessageById'
+export const message_delete_api = '/api/message/deleteMessageByIds'
+export const messages_api = '/api/message/getMessages'

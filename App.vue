@@ -23,6 +23,16 @@
 	// #endif
 	export default {
 		onLaunch() {
+			uni.onPushMessage((res) => {
+				const pages = getCurrentPages()
+				const page = pages[pages.length - 1]
+				if (page && page.route !== 'pages/message/message') {
+					// 设置tabbar红点
+					uni.showTabBarRedDot({
+						index: 1
+					})
+				}
+			})
 			// #ifdef APP-PLUS  
 			wgtUpdate()
 			// #endif

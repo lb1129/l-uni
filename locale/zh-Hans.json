@@ -67,5 +67,6 @@
 	"passwordRule": "7-10个字符，由数字，英文大小写组成",
 	"phoneRule": "手机号格式不正确",
 	"none": "无",
-	"editPhone": "修改手机号"
+	"editPhone": "修改手机号",
+	"message": "消息"
 }

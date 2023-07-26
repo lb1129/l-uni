@@ -57,6 +57,13 @@ export function createApp() {
 							// #ifdef MP-WEIXIN
 							text: this.$t('me'),
 							// #endif
+							selectedIconPath: `/static/tabbar/message-${themeVal}.png`,
+						})
+						uni.setTabBarItem({
+							index: 2,
+							// #ifdef MP-WEIXIN
+							text: this.$t('message'),
+							// #endif
 							selectedIconPath: `/static/tabbar/user-${themeVal}.png`,
 						})
 						uni.setTabBarStyle({
