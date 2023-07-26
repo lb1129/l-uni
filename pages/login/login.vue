@@ -57,7 +57,8 @@
 		loginByWxServe
 	} from '@/serves/auth.js'
 	import {
-		getUserInfoServe
+		getUserInfoServe,
+		setPushClientIdServe
 	} from '@/serves/user.js'
 	import {
 		getMenuServe
@@ -149,6 +150,12 @@
 			},
 			loginSuccessAfterHandler(token) {
 				tokenStorage.set(token)
+				// 更新客户端推送标识
+				uni.getPushClientId({
+					success: (res) => {
+						setPushClientIdServe(res.cid)
+					}
+				})
 				getUserInfoServe().then(res => {
 					this.setUserInfo(res.data)
 				})

@@ -1,7 +1,8 @@
 import {
 	userInfo_get_api,
 	userInfo_edit_api,
-	userInfo_set_phone_api
+	userInfo_set_phone_api,
+	userInfo_set_PushClientId_api
 } from '@/interceptor/request/api.js'
 
 export const getUserInfoServe = () => uni.request({
@@ -20,4 +21,11 @@ export const setPhoneServe = (ops) => uni.request({
 		code: ops.code
 	},
 	method: 'POST'
+})
+
+export const setPushClientIdServe = (cid) => uni.request({
+	url: userInfo_set_PushClientId_api,
+	data: {
+		cid
+	}
 })
