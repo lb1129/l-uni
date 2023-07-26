@@ -1,0 +1,11 @@
+{
+  "name": "user",
+  "dependencies": {
+    "response-common": "file:../common/response-common",
+    "lodash-common": "file:../common/lodash-common",
+    "validate-common": "file:../common/validate-common"
+  },
+  "extensions": {
+    "uni-cloud-redis": {}
+  }
+}

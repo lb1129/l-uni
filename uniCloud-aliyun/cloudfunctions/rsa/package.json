@@ -1,0 +1,8 @@
+{
+  "name": "rsa",
+  "dependencies": {
+    "rsa-common": "file:../common/rsa-common",
+    "response-common": "file:../common/response-common"
+  },
+  "extensions": {}
+}

@@ -1,0 +1,11 @@
+// 本文件中的json内容将在云函数【运行】时作为参数传给云函数。
+// 配置教程参考：https://uniapp.dcloud.net.cn/uniCloud/rundebug.html#runparam
+{
+	"userIds": ["64b940668b0da41af0d4a472"],
+	"title": "标题",
+	"content": "内容",
+	"payload": {
+		"text": "体验一下uni-push2.0"
+	},
+	"force_notification": true
+}

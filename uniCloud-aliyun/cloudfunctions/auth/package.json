@@ -1,0 +1,15 @@
+{
+  "name": "auth",
+  "dependencies": {
+    "jwt-common": "file:../common/jwt-common",
+    "lodash-common": "file:../common/lodash-common",
+    "response-common": "file:../common/response-common",
+    "validate-common": "file:../common/validate-common"
+  },
+  "extensions": {
+    "uni-cloud-redis": {}
+  },
+  "cloudfunction-config": {
+    "runtime": "Nodejs12"
+  }
+}
