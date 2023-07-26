@@ -44,11 +44,14 @@ uni.addInterceptor('request', {
 				}
 			}
 		}
-		if (!req.hiddenErrMsg && res.statusCode >= 300 && res.statusCode !== 401)
-			uni.showToast({
-				icon: 'none',
-				title: res.data.errMsg
-			})
+		if (!req.hiddenErrMsg) {
+			if (res.statusCode >= 300 && res.statusCode !== 401) {
+				uni.showToast({
+					icon: 'none',
+					title: res.statusCode === 500 ? 'server error' : res.data.errMsg
+				})
+			}
+		}
 		uni.hideLoading()
 	},
 	fail(e) {
