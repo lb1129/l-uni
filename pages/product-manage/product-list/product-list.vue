@@ -29,12 +29,6 @@
 		data() {
 			return {
 				loading: false,
-				queryParams: {
-					keyword: '',
-
-					pageNo: 1,
-					pageSize: 10
-				},
 				dataSource: [],
 				total: 0
 			}
@@ -81,7 +75,6 @@
 													windowTop
 												} = uni.getWindowInfo()
 												if (top - windowHeight - windowTop <= 50) {
-													this.queryParams.pageNo++
 													this.loadData()
 												}
 											}).exec();
@@ -108,18 +101,16 @@
 
 			},
 			searchClearHandler() {
-				if (this.queryParams.keyword) {
-					this.queryParams.keyword = ''
-					this.queryParams.pageNo = 1
+				if (this.keyword) {
+					this.keyword = ''
 					this.dataSource = []
 					this.loadData()
 				}
 			},
 			searchHandler(e) {
 				const value = e.value
-				if (this.queryParams.keyword !== value) {
-					this.queryParams.keyword = value
-					this.queryParams.pageNo = 1
+				if (this.keyword !== value) {
+					this.keyword = value
 					this.dataSource = []
 					this.loadData()
 				}
@@ -127,8 +118,13 @@
 			async loadData() {
 				this.loading = true
 				try {
-					const res = await getProductsServe(this.queryParams)
-					this.dataSource = res.data.data
+					const res = await getProductsServe({
+						pageSize: this.pageSize,
+						keyword: this.keyword,
+						createDate: this.dataSource.length ? this.dataSource[this.dataSource.length - 1]
+							.create_date : null
+					})
+					this.dataSource = [...this.dataSource, ...res.data.data]
 					this.total = res.data.total
 					this.loading = false
 				} catch (error) {
@@ -137,7 +133,6 @@
 			}
 		},
 		onPullDownRefresh() {
-			this.queryParams.pageNo = 1
 			this.dataSource = []
 			this.loadData().finally(() => {
 				uni.stopPullDownRefresh()
@@ -145,7 +140,6 @@
 		},
 		onReachBottom() {
 			if (this.status === 'more') {
-				this.queryParams.pageNo++
 				this.loadData()
 			}
 		},
@@ -157,7 +151,7 @@
 			const searchBarHeight = 56
 			const listItemHeight = 67
 			const pageSize = Math.ceil((windowHeight - searchBarHeight) / listItemHeight) + 1
-			this.queryParams.pageSize = pageSize
+			this.pageSize = pageSize
 			this.loadData()
 		}
 	}
