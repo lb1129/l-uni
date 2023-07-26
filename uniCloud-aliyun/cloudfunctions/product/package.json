@@ -1,8 +1,0 @@
-{
-  "name": "product",
-  "dependencies": {
-    "response-common": "file:../common/response-common",
-    "validate-common": "file:../common/validate-common"
-  },
-  "extensions": {}
-}

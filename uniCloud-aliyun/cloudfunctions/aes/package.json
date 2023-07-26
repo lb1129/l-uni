@@ -1,8 +1,0 @@
-{
-  "name": "aes",
-  "dependencies": {
-    "crypto-common": "file:../common/crypto-common",
-    "response-common": "file:../common/response-common"
-  },
-  "extensions": {}
-}

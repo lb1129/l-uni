@@ -1,7 +1,0 @@
-{
-  "name": "wgtUpdate",
-  "dependencies": {
-    "response-common": "file:../common/response-common"
-  },
-  "extensions": {}
-}
