@@ -125,6 +125,7 @@ module.exports = {
 	 */
 	async getMessages(ops = {}) {
 		let {
+			userId,
 			pageNo,
 			pageSize,
 			createDate
@@ -139,8 +140,11 @@ module.exports = {
 			const collection = db.collection('message').field({
 				user_id: false
 			})
-			const totalRes = await collection.count()
+			const totalRes = await collection.where({
+				user_id: userId
+			}).count()
 			let res = await collection.where({
+				user_id: userId,
 				create_date: dbCmd.lt(createDate)
 			}).limit(pageSize).orderBy("create_date",
 				"desc").get()
