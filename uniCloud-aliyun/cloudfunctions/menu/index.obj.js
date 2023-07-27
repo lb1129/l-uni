@@ -14,7 +14,9 @@ module.exports = {
 	 */
 	async getMenu(ops = {}) {
 		const {
-			userId
+			userId,
+			// PC APP
+			type
 		} = ops
 		try {
 			const db = uniCloud.database()
@@ -22,7 +24,9 @@ module.exports = {
 			const res = await collection.field({
 				user_id: false
 			}).where({
-				user_id: userId
+				type
+				// TODO 菜单还不能新增 暂不按用户查
+				// user_id: userId
 			}).get()
 			const menu = res.data
 			// 构建树形结构

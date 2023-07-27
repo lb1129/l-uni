@@ -46,6 +46,7 @@ module.exports = {
 		const {
 			userId,
 			nickname,
+			profile,
 			avatar
 		} = ops
 
@@ -53,10 +54,11 @@ module.exports = {
 			const db = uniCloud.database()
 			await db.collection('user').doc(userId).update({
 				nickname,
+				profile,
 				avatar,
 				update_date: Date.now()
 			})
-			return success(userId)
+			return success(true)
 		} catch (e) {
 			return fail('更新用户信息失败，请重试')
 		}

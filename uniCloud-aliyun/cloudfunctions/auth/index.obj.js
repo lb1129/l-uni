@@ -227,7 +227,7 @@ module.exports = {
 				password: aesEncryptRes.data,
 				update_date: Date.now()
 			})
-			return success()
+			return success(true)
 		} catch (e) {
 			return fail('找回密码失败，请重试')
 		}

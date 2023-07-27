@@ -26,7 +26,9 @@ module.exports = {
 		try {
 			const db = uniCloud.database()
 			const collection = db.collection('product')
-			const res = await collection.doc(id).get()
+			const res = await collection.doc(id).field({
+				user_id: false
+			}).get()
 			if (res.affectedDocs) {
 				return success(res.data[0])
 			}
@@ -37,12 +39,12 @@ module.exports = {
 	},
 	/**
 	 * 保存产品
-	 * @param {object} ops {id?: string, name: string, brand: string, category: string, price: number, color: string, style: string, enable: boolean, inventory: number, describe: string}
+	 * @param {object} ops {_id?: string, name: string, brand: string, category: string, price: number, color: string, style: string, enable: boolean, inventory: number, describe: string}
 	 * @returns {object} {errCode: number, errMsg: string, data: any}
 	 */
 	async saveProduct(ops = {}) {
 		const {
-			id,
+			_id,
 			name,
 			brand,
 			category,
@@ -57,7 +59,7 @@ module.exports = {
 		} = ops
 
 		// 新增
-		if (isNoValue(id)) {
+		if (isNoValue(_id)) {
 			if (isNoValue(name)) return fail('缺失名称')
 			if (isNoValue(brand)) return fail('缺失品牌')
 			if (isNoValue(category)) return fail('缺失分类')
@@ -68,9 +70,8 @@ module.exports = {
 			const db = uniCloud.database()
 			const collection = db.collection('product')
 			// 编辑
-			if (id) {
-				await collection.doc(id).update({
-					user_id: userId,
+			if (_id) {
+				await collection.doc(_id).update({
 					name,
 					brand,
 					category,
@@ -83,7 +84,7 @@ module.exports = {
 					images,
 					update_date: Date.now()
 				})
-				return success(id)
+				return success(_id)
 			} else { // 新增
 				const addRes = await collection.add({
 					user_id: userId,
@@ -144,7 +145,6 @@ module.exports = {
 		} = ops
 
 		if (isNoValue(pageSize)) return fail('缺失pageSize')
-		if (isNoValue(createDate)) createDate = Date.now()
 		if (isNoValue(keyword)) keyword = ''
 
 		try {
@@ -155,15 +155,31 @@ module.exports = {
 			})
 			const reg = new RegExp(`^${keyword}`, 'i')
 			const totalRes = await collection.where({
-				name: reg
+				name: reg,
+				user_id: userId
 			}).count()
-			let res = await collection.where({
+			let res
+			// 用 pageNo 翻页
+			if (pageNo) {
+				res = await collection.where({
+					name: reg,
+					user_id: userId
+				}).skip((pageNo - 1) * pageSize).limit(pageSize).orderBy("create_date", "desc").get()
+				return success({
+					pageNo,
+					pageSize,
+					data: res.data,
+					total: totalRes.total
+				})
+			}
+			// 用 create_date 连续翻页 
+			if (isNoValue(createDate)) createDate = Date.now()
+			res = await collection.where({
 				name: reg,
 				user_id: userId,
 				create_date: dbCmd.lt(createDate)
 			}).limit(pageSize).orderBy("create_date", "desc").get()
 			return success({
-				pageNo,
 				pageSize,
 				data: res.data,
 				total: totalRes.total
