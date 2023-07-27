@@ -1,0 +1,12 @@
+{
+  "name": "getUploadParams",
+  "dependencies": {
+    "axios-common": "file:../common/axios-common",
+    "response-common": "file:../common/response-common",
+    "crypto-common": "file:../common/crypto-common"
+  },
+  "extensions": {},
+  "cloudfunction-config": {
+    "runtime": "Nodejs12"
+  }
+}

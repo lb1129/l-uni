@@ -1,8 +1,0 @@
-{
-  "name": "upload",
-  "dependencies": {
-    "axios-common": "file:../common/axios-common",
-    "response-common": "file:../common/response-common"
-  },
-  "extensions": {}
-}
