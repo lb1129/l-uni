@@ -136,6 +136,7 @@ module.exports = {
 	 */
 	async getProducts(ops = {}) {
 		let {
+			userId,
 			pageNo,
 			pageSize,
 			keyword,
@@ -144,6 +145,7 @@ module.exports = {
 
 		if (isNoValue(pageSize)) return fail('缺失pageSize')
 		if (isNoValue(createDate)) createDate = Date.now()
+		if (isNoValue(keyword)) keyword = ''
 
 		try {
 			const db = uniCloud.database()
@@ -151,13 +153,13 @@ module.exports = {
 			let collection = db.collection('product').field({
 				user_id: false
 			})
-			if (!isNoValue(keyword)) {
-				collection = collection.where({
-					name: new RegExp(`^${keyword}`, 'i')
-				})
-			}
-			const totalRes = await collection.count()
+			const reg = new RegExp(`^${keyword}`, 'i')
+			const totalRes = await collection.where({
+				name: reg
+			}).count()
 			let res = await collection.where({
+				name: reg,
+				user_id: userId,
 				create_date: dbCmd.lt(createDate)
 			}).limit(pageSize).orderBy("create_date", "desc").get()
 			return success({
