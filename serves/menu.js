@@ -3,5 +3,8 @@ import {
 } from '@/interceptor/request/api.js'
 
 export const getMenuServe = () => uni.request({
-	url: menu_get_api
+	url: menu_get_api,
+	data: {
+		type: 'APP'
+	}
 })
