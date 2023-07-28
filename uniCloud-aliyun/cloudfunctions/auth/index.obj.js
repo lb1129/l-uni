@@ -167,6 +167,8 @@ module.exports = {
 				phone,
 				// 默认头像
 				avatar: 'https://mp-d2e0b969-5400-4832-adeb-d0127579976e.cdn.bspapp.com/user.png',
+				// 简介
+				profile: '',
 				create_date: Date.now()
 			})
 			return success(addRes.id)
@@ -227,6 +229,7 @@ module.exports = {
 				password: aesEncryptRes.data,
 				update_date: Date.now()
 			})
+			if (!res.updated) return fail('手机号未绑定用户')
 			return success(true)
 		} catch (e) {
 			return fail('找回密码失败，请重试')
