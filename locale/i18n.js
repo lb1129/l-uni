@@ -1,7 +1,12 @@
 import {
 	createI18n
 } from 'vue-i18n'
-import messages from './index.js'
+import en from './en.json'
+import zhHans from './zh-Hans.json'
+const messages = {
+	en,
+	'zh-Hans': zhHans
+}
 
 const i18nConfig = {
 	locale: uni.getLocale(),
